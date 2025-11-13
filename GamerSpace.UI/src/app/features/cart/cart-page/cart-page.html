@@ -1,0 +1,62 @@
+<div class="cart-container">
+  <h1>Carrinho</h1>
+  @if (cartItems.length === 0) {
+    <div class="cart-empty">
+      <p>Seu carrinho está vazio</p>
+      <a routerLink="/products">Continuar comprando</a>
+    </div>
+  } @else {
+    <div class="cart-content">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Subtotal</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of cartItems; track item.variant.id) {
+            <tr>
+              <td>{{ item.variant.sku }}</td>
+              <td>{{ item.variant.price | currency: 'BRL' }}</td>
+              <td>
+                <input
+                  type="number"
+                  [ngModel]="item.quantity"
+                  (change)="updateQuantity(item.variant.id, $event.target.valueAsNumber)"
+                  min="1"
+                  [max]="item.variant.stockAmount"
+                />
+              </td>
+              <td>{{ item.variant.price * item.quantity | currency: 'BRL' }}</td>
+              <td>
+                <button (click)="removeFromCart(item.variant.id)" class="btn-remove">
+                  Remover
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <div class="cart-summary">
+        <button (click)="clearCart()" class="btt-clear">Limpar carrinho</button>
+        <div class="total-display">
+          <h2>Total: {{ totalPrice | currency: 'BRL' }}</h2>
+        </div>
+        <button class="btn-checkout" (click)="onCheckout()" [disabled]="isCheckingOut">
+          @if (isCheckingOut) {
+            <span>Processando...</span>
+          } @else {
+            <span>Finalizar Compra</span>
+          }
+        </button>
+        @if (checkoutError) {
+          <div class="error-message">{{ checkoutError }}</div>
+        }
+      </div>
+    </div>
+  }
+</div>

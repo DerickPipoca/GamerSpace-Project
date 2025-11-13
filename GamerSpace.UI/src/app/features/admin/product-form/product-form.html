@@ -1,0 +1,65 @@
+@if (isLoading) {
+  <p>Carregando...</p>
+} @else {
+  <h2>
+    @if (isEditMode) {
+      Editar Produto
+    } @else {
+      Novo Produto
+    }
+  </h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nome do Produto</label>
+      <input id="name" type="text" formControlName="name" />
+    </div>
+    <div class="form-group">
+      <label for="description">Nome do Produto</label>
+      <textarea id="description" formControlName="description" rows="5"></textarea>
+    </div>
+    <hr />
+    <h3>Variantes</h3>
+    <div formArrayName="variants">
+      @for (variantGroup of variants.controls; track $index) {
+        <div [formGroupName]="$index" class="variant-form-group">
+          <h4>Variante #{{ $index + 1 }}</h4>
+          <div class="form-group">
+            <label for="sku-{{ $index }}">SKU</label>
+            <input id="sku-{{ $index }}" type="text" formControlName="sku" />
+          </div>
+
+          <div class="form-group">
+            <label for="price-{{ $index }}">Preço</label>
+            <input id="price-{{ $index }}" type="number" formControlName="price" />
+          </div>
+
+          <div class="form-group">
+            <label for="stock-{{ $index }}">Estoque</label>
+            <input id="stock-{{ $index }}" type="number" formControlName="stockAmount" />
+          </div>
+
+          <button type="button" (click)="removeVariant($index)" class="btn-danger">
+            Remover Variante
+          </button>
+        </div>
+      }
+    </div>
+    <button type="button" (click)="addVariant()">+ Adiconar Variante</button>
+    <div class="form-actions">
+      <button type="submit" [disabled]="productForm.invalid || isLoading">
+        @if (isLoading) {
+          Carregando...
+        } @else {
+          Salvar
+        }
+      </button>
+      <a routerLink="/admin/products" class="btn btn-secondary">Cancelar</a>
+    </div>
+
+    @if (error) {
+      <div class="error-message">
+        {{ error }}
+      </div>
+    }
+  </form>
+}

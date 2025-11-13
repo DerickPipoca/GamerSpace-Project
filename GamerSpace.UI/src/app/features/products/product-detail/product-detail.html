@@ -1,0 +1,44 @@
+@if (isLoading) {
+  <h2>Carregando produtos...</h2>
+} @else if (error != null) {
+  <h2>Ops! Algo deu errado.</h2>
+  <p>{{ error }}</p>
+} @else if (product) {
+  <h1>{{ product.name }}</h1>
+  <p>{{ product.description }}</p>
+
+  <hr />
+
+  @if (selectedVariant) {
+    <div class="variant-details">
+      <h3>{{ selectedVariant.sku }}</h3>
+      <p>Preço: {{ selectedVariant.price | currency: 'BRL' }}</p>
+      <p>Em estoque: {{ selectedVariant.stockAmount }}</p>
+      <div class="add-to-cart-form">
+        <label for="quantity">Quantidade</label>
+
+        <input
+          type="number"
+          id="quantity"
+          [(ngModel)]="quantity"
+          min="1"
+          [max]="selectedVariant.stockAmount"
+        />
+      </div>
+      @if (variants.length > 0) {
+        <div class="variant-selector">
+          @for (variant of variants; track variant.id) {
+            <button
+              type="button"
+              (click)="selectVariant(variant)"
+              [disabled]="variant === selectedVariant"
+            >
+              {{ variant.sku }}
+            </button>
+          }
+        </div>
+      }
+      <button (click)="addToCart()">Adicionar ao carrinho</button>
+    </div>
+  }
+}

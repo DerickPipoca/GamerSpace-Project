@@ -1,0 +1,7 @@
+namespace GamerSpace.Application.DTOs
+{
+    public class UpdateCategoryDto
+    {
+        public string Name { get; set; } = string.Empty;
+    }
+}

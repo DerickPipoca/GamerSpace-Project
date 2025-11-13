@@ -1,0 +1,37 @@
+<h2>Gerenciamento de Produtos</h2>
+
+<a routerLink="/admin/products/new" class="btn btn-primary">Adicionar Novo Produto</a>
+
+@if (isLoading) {
+  <p>Carregando...</p>
+} @else if (error) {
+  <p class="error-message">{{ error }}</p>
+} @else if (productsResult && productsResult.items.length > 0) {
+  <table class="admin-tabe">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Criado em</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (product of productsResult.items; track product.id) {
+        <tr>
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.createTime | date: 'shortDate' }}</td>
+          <td>
+            <a [routerLink]="['/admin/products/edit', product.id]" class="btn btn-secondary">
+              Editar
+            </a>
+            <button (click)="deleteProduct(product.id)" class="btn btn-danger">Deletar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+} @else {
+  <p>Nenhum produto encontrado.</p>
+}

@@ -1,0 +1,77 @@
+@use '../../../styles/variables' as *;
+
+header {
+  background-color: $dark-color;
+  color: $light-color;
+
+  padding: $padding-size 0;
+  max-height: 124px;
+  font-size: $font-size-header;
+  font-weight: $font-weight-bold;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  a {
+    color: $light-color;
+    text-decoration: none;
+  }
+
+  nav {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 $padding-size;
+
+    ul {
+      width: 100%;
+      justify-content: space-between;
+
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: $padding-size;
+      li {
+        input {
+          flex-grow: 1;
+          background-color: $light-color;
+          border: none;
+          border-radius: $border-radius-input;
+          height: 50px;
+          box-sizing: border-box;
+          outline: none;
+          width: 100%;
+          font-family: $main-font;
+          font-size: $font-size-p;
+          font-weight: $font-weight-bold;
+
+          padding-left: 35px;
+        }
+        mat-icon {
+          font-size: $icon-size-header;
+          width: $icon-size-header;
+          height: $icon-size-header;
+          display: block;
+        }
+        &.input-group {
+          position: relative;
+          display: flex;
+          align-items: center;
+
+          flex-grow: 1;
+          mat-icon {
+            left: $padding-size-half;
+            position: absolute;
+            color: $dark-color;
+            font-size: 30px;
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
+}

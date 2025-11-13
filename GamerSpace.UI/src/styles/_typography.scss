@@ -1,0 +1,39 @@
+%space-mono-base {
+  font-family: 'Space Mono', monospace;
+}
+%font-regular {
+  font-weight: 400;
+}
+%font-bold {
+  font-weight: 700;
+}
+%font-normal {
+  font-style: normal;
+}
+%font-italic {
+  font-style: italic;
+}
+
+.space-mono-regular {
+  @extend %space-mono-base;
+  @extend %font-regular;
+  @extend %font-normal;
+}
+
+.space-mono-bold {
+  @extend %space-mono-base;
+  @extend %font-bold;
+  @extend %font-normal;
+}
+
+.space-mono-regular-italic {
+  @extend %space-mono-base;
+  @extend %font-regular;
+  @extend %font-italic;
+}
+
+.space-mono-bold-italic {
+  @extend %space-mono-base;
+  @extend %font-bold;
+  @extend %font-italic;
+}

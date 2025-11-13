@@ -1,0 +1,18 @@
+@use '../../../styles/variables' as *;
+footer {
+  background-color: $dark-color;
+  display: flex;
+  color: $light-color;
+  padding: 0 25vh;
+  img {
+    padding-top: 50px;
+  }
+  ul {
+    font-size: $font-size-h3;
+    li {
+      padding-top: $padding-size-half;
+      font-size: $font-size-small;
+      color: $info-color;
+    }
+  }
+}

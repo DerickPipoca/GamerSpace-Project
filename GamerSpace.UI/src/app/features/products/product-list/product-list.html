@@ -1,0 +1,18 @@
+@if (isLoading) {
+  <h2>Carregando produtos...</h2>
+} @else if (error != null) {
+  <h2>Ops! Algo deu errado.</h2>
+  <p>{{ error }}</p>
+} @else {
+  @if (!isLoading && productResult != null) {
+    <h1>Produtos:</h1>
+
+    @for (product of productResult.items; track $index) {
+      <a routerLink="{{ product.id }}"
+        ><h3>{{ product.name }}</h3></a
+      >
+      <p>{{ product.description }}</p>
+      <small>Criado em: {{ product.createTime | date: 'dd/MM/yyyy' }}</small>
+    }
+  }
+}
