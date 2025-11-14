@@ -1,29 +1,41 @@
 <footer>
-  <a routerLink="/home">
-    <img src="../../../assets/images/logos/gamer-space-logo.svg" alt="Gamer Space Logo" />
-  </a>
-  <ul>
-    Ajuda
-    <li><a>FAQ</a></li>
-    <li><a>Entrega</a></li>
-    <li><a>Devolução</a></li>
-    <li><a>Status do pedido</a></li>
-    <li><a>Opções de pagamento</a></li>
-  </ul>
-  <hr />
-  <ul>
-    Empresa
-    <li><a>Sobre nós</a></li>
-    <li><a>Política de privacidade</a></li>
-    <li><a>Termos de serviço</a></li>
-  </ul>
-  <hr />
-  <ul>
-    Contatos
-    <li><fa-icon [icon]="['fas', 'envelope']" /><a>Email</a></li>
-    <li><fa-icon [icon]="['fab', 'facebook']" /><a>Facebook</a></li>
-    <li><fa-icon [icon]="['fab', 'x-twitter']" /><a>X</a></li>
-    <li><fa-icon [icon]="['fab', 'instagram']" /><a>Instagram</a></li>
-    <li><fa-icon [icon]="['fab', 'linkedin']" /><a>Linkedin</a></li>
-  </ul>
+  <div class="container footer__container">
+    <a class="footer__logo" routerLink="/home">
+      <img src="../../../assets/images/logos/gamer-space-logo.svg" alt="Gamer Space Logo" />
+    </a>
+    <div class="footer__column">
+      <h4 class="footer__title">Ajuda</h4>
+      <ul class="footer__list">
+        <li><a class="footer__link" routerLink="/faq">FAQ</a></li>
+        <li><a class="footer__link" routerLink="/ordering">Entrega</a></li>
+        <li><a class="footer__link" routerLink="/return">Devolução</a></li>
+        <li><a class="footer__link" routerLink="/order-status">Status do pedido</a></li>
+        <li><a class="footer__link" routerLink="/payment-options">Opções de pagamento</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__divider"></div>
+
+    <div class="footer__column">
+      <h4 class="footer__title">Empresa</h4>
+      <ul class="footer__list">
+        <li><a class="footer__link" routerLink="/about-us">Sobre nós</a></li>
+        <li><a class="footer__link" routerLink="/privacity-policy">Política de privacidade</a></li>
+        <li><a class="footer__link" routerLink="/terms-of-service">Termos de serviço</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__divider"></div>
+
+    <div class="footer__column">
+      <h4 class="footer__title">Contatos</h4>
+      <ul class="footer__list footer__list--contact">
+        <li><fa-icon [icon]="['fas', 'envelope']" /><a class="footer__link">Email</a></li>
+        <li><fa-icon [icon]="['fab', 'facebook']" /><a class="footer__link">Facebook</a></li>
+        <li><fa-icon [icon]="['fab', 'x-twitter']" /><a class="footer__link">X</a></li>
+        <li><fa-icon [icon]="['fab', 'instagram']" /><a class="footer__link">Instagram</a></li>
+        <li><fa-icon [icon]="['fab', 'linkedin']" /><a class="footer__link">Linkedin</a></li>
+      </ul>
+    </div>
+  </div>
 </footer>

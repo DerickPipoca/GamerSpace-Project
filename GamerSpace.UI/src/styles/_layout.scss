@@ -1,0 +1,15 @@
+@use 'variables' as *;
+
+.container {
+  width: 100%;
+
+  max-width: $container-max-width;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-left: 5rem;
+  padding-right: 5rem;
+
+  box-sizing: border-box;
+}

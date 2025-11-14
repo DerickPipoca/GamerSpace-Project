@@ -1,18 +1,63 @@
 @use '../../../styles/variables' as *;
+@use '../../../styles/layout' as *;
 footer {
   background-color: $dark-color;
-  display: flex;
   color: $light-color;
-  padding: 0 25vh;
-  img {
-    padding-top: 50px;
+  padding: $padding-size;
+  width: 100%;
+  box-sizing: border-box;
+
+  .footer__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: $padding-size;
   }
-  ul {
+
+  .footer__title {
     font-size: $font-size-h3;
+    color: $light-color;
+    margin-top: 0;
+    margin-bottom: $padding-size;
+  }
+
+  .footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
     li {
-      padding-top: $padding-size-half;
-      font-size: $font-size-small;
-      color: $info-color;
+      margin-bottom: $padding-size-half;
     }
+  }
+
+  .footer__logo {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .footer__link {
+    font-size: $font-size-footer;
+    color: $info-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $light-color;
+    }
+  }
+
+  .footer__list--contact {
+    li {
+      display: flex;
+      align-items: center;
+      gap: $padding-size-half;
+    }
+  }
+
+  .footer__divider {
+    width: 3px;
+    border-radius: 20px;
+    background-color: $light-color;
+    align-self: stretch;
   }
 }

@@ -8,7 +8,8 @@
 
 @use 'styles/base';
 @use 'styles/typography';
-
+@use 'styles/layout';
+@use 'styles/buttons';
 html {
   @include mat.theme(
     (
