@@ -1,0 +1,55 @@
+@use 'variables' as *;
+
+%btn-base {
+  padding: $padding-size;
+  font-family: $main-font;
+  font-weight: $font-weight-bold;
+  border-radius: $border-radius-button;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+}
+
+.btn {
+  @extend %btn-base;
+}
+
+.btn--light {
+  background-color: $light-color;
+  color: $dark-color;
+
+  &:hover {
+    background-color: mix($light-color, #000000, 80%);
+  }
+}
+
+.btn--dark {
+  background-color: $dark-color;
+  color: $light-color;
+
+  &:hover {
+    background-color: mix($dark-color, #ffffff, 80%);
+  }
+}
+
+.btn--primary {
+  background-color: $primary-color;
+  color: $dark-color;
+
+  &:hover {
+    background-color: mix($primary-color, #000000, 80%);
+  }
+}
+
+.btn--secondary {
+  background-color: $secondary-color;
+  color: $light-color;
+
+  &:hover {
+    background-color: mix($secondary-color, #ffffff, 80%);
+  }
+}
