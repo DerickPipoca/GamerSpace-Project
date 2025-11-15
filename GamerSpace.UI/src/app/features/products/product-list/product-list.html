@@ -1,18 +1,36 @@
-@if (isLoading) {
-  <h2>Carregando produtos...</h2>
-} @else if (error != null) {
-  <h2>Ops! Algo deu errado.</h2>
-  <p>{{ error }}</p>
-} @else {
-  @if (!isLoading && productResult != null) {
-    <h1>Produtos:</h1>
-
-    @for (product of productResult.items; track $index) {
-      <a routerLink="{{ product.id }}"
-        ><h3>{{ product.name }}</h3></a
-      >
-      <p>{{ product.description }}</p>
-      <small>Criado em: {{ product.createTime | date: 'dd/MM/yyyy' }}</small>
+<div class="products">
+  <div class="products__filters">
+    @if (categoryIsLoading) {
+      <h2>Carregando categorias...</h2>
+    } @else if (categoryError != null) {
+      <h2>Ops! Algo deu errado.</h2>
+      <p>{{ categoryError }}</p>
+    } @else {
+      @for (group of categoryGroupResult; track group.typeId) {
+        <h3>{{ group.typeId }}: {{ group.typeName }}</h3>
+        @for (item of group.items; track item.id) {
+          <p>{{ item.id }}: {{ item.name }}</p>
+        }
+      }
     }
-  }
-}
+  </div>
+  <div class="products__list">
+    @if (productIsLoading) {
+      <h2>Carregando produtos...</h2>
+    } @else if (productError != null) {
+      <h2>Ops! Algo deu errado.</h2>
+      <p>{{ productError }}</p>
+    } @else {
+      @if (!productIsLoading && productResult != null) {
+        <p>Nós encontramos {{ productResult.items.length }} resultados</p>
+        @for (product of productResult.items; track $index) {
+          <a routerLink="{{ product.id }}"
+            ><h3>{{ product.name }}</h3></a
+          >
+          <p>{{ product.description }}</p>
+          <small>Criado em: {{ product.createTime | date: 'dd/MM/yyyy' }}</small>
+        }
+      }
+    }
+  </div>
+</div>
