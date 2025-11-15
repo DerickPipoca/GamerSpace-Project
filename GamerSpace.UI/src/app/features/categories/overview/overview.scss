@@ -1,0 +1,18 @@
+@use '../../../../styles/variables' as *;
+
+.categories__card-list {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+
+  gap: 16px;
+  margin-top: $padding-size-double;
+  margin-bottom: $padding-size-double * 2;
+}
+
+.categories__title {
+  font-size: $font-size-h1;
+  font-weight: $font-weight-bold;
+  color: $light-color;
+  padding: $padding-size-double 0;
+}

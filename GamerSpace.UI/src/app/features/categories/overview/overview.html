@@ -1,1 +1,12 @@
-<p>overview works!</p>
+<div class="categories">
+  <h1 class="categories__title">Categorias</h1>
+  <div class="categories__card-list">
+    @for (category of categoriesList; track $index) {
+      <app-category-card
+        [categoryName]="category.name"
+        [categoryImageUrl]="category.imageUrl"
+        [categoryPathUrl]="category.pathUrl"
+      />
+    }
+  </div>
+</div>
