@@ -3,14 +3,14 @@ import { PagedResult } from '../../../shared/models/paged-result.model';
 import { Product } from '../../../shared/models/product.model';
 import { ProductService } from '../../../core/services/product-service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { GroupedCategory } from '../../../shared/models/category-group.model';
 import { CategoryService } from '../../../core/services/category-service';
+import { ProductCard } from '../../../layout/product-card/product-card';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, ProductCard],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
 })

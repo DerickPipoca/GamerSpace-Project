@@ -1,3 +1,44 @@
+@use '../../../../styles/variables' as *;
 .products {
-  grid-template-columns: 1fr 1.5fr;
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  gap: $padding-size;
+  height: 100%;
+  margin-top: $padding-size-double;
+}
+
+.products__filters {
+  color: $light-color;
+  padding: $padding-size;
+  background-color: $dark-color;
+  border-radius: 16px;
+  margin-bottom: auto;
+}
+
+.products__filters--title {
+  font-size: $font-size-h3;
+  margin: $padding-size 0;
+}
+
+.products__filters--name {
+  font-size: $font-size-h4;
+  margin: $padding-size-half 0;
+}
+
+.products__list--found-amount {
+  margin: $padding-size-double;
+  color: $light-color;
+  font-size: $font-size-h3;
+  line-height: 26px;
+}
+
+.products__list--items {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+
+  gap: 16px;
+  margin-left: $padding-size-double;
+  margin-top: $padding-size-double;
+  margin-bottom: $padding-size-double * 2;
 }
