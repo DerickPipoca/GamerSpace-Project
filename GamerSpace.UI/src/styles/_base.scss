@@ -3,6 +3,9 @@
 body {
   font-family: $main-font;
   font-weight: $font-weight-regular;
-  background: $background-default-color;
+  background-image: url('http://noisepng.com/200-92-6.png'), $background-default-color;
   margin: 0;
+  background-repeat: repeat, repeat;
+  background-size: auto, cover;
+  min-height: 100vh;
 }
