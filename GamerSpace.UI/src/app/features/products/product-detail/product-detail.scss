@@ -1,0 +1,130 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/buttons';
+
+.product-page {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: $padding-size-double * 2;
+  height: 100%;
+  margin-top: $padding-size-double;
+  color: $dark-color;
+}
+
+.product-page__images--main-image {
+  width: auto;
+  min-width: 100%;
+  min-height: 100%;
+  border-radius: 2%;
+  border-color: $dark-color;
+  background-color: $dark-color;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.product-page__main-info--name {
+  margin-bottom: $padding-size-double;
+  font-size: $font-size-h1;
+  line-height: 48px;
+}
+
+.product-page__main-info--sku {
+  margin-top: 0;
+  font-size: $font-size-h3;
+}
+
+.product-page__main-info--price {
+  font-size: $font-size-h1;
+  margin-bottom: $padding-size-double * 6;
+}
+
+.product-page__main-info--checkout {
+  display: flex;
+  gap: $padding-size;
+  align-items: stretch;
+  width: 100%;
+  .mat-icon {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.product-page__main-info--cart-amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  height: 100%;
+  font-family: $main-font;
+  font-size: $font-size-h3;
+  text-align: center;
+  border: none;
+  background-color: $light-color;
+  color: $secondary-color;
+  font-weight: $font-weight-bold;
+  border-radius: 8px;
+  &:focus {
+    outline: none;
+  }
+  button {
+    color: $secondary-color;
+    height: 100%;
+    background: none;
+    font-size: $font-size-h3;
+    font-family: $main-font;
+    font-weight: $font-weight-bold;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.product-page__main-info--variants {
+  display: flex;
+  gap: $padding-size-half;
+  margin-bottom: $padding-size;
+}
+
+.product-page__main-info--variant-btn {
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.product-page__main-info--checkout-btn {
+  font-size: $font-size-h3;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  align-items: center;
+  width: 50%;
+  p {
+    margin: 0;
+  }
+}
+
+.product-page__main-info--checkout-icon {
+  font-size: 48px !important;
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.product-page__description {
+  width: 100%;
+  margin: $padding-size-double 0;
+  margin-top: $padding-size-double * 2;
+}
+
+.product-page__description--text {
+  font-size: $font-size-h4;
+  background-color: $light-color;
+
+  border-radius: $border-radius-button;
+  padding: $padding-size;
+}

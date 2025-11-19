@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../../core/services/cart-service';
 import { ProductVariant } from '../../../shared/models/product-variant.model';
 import { forkJoin } from 'rxjs';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIcon],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })
@@ -80,6 +81,15 @@ export class ProductDetail implements OnInit {
     console.log(`Adicionando ${this.quantity} do item ${this.selectedVariant.sku} ao carrinho!`);
 
     this.cartService.addToCart(this.selectedVariant, this.quantity);
+  }
+
+  changeQuantity(amount: number) {
+    if (this.selectedVariant) {
+      const newAmount = this.quantity + amount;
+      if (newAmount <= this.selectedVariant.stockAmount && newAmount > 0) {
+        this.quantity = newAmount;
+      }
+    }
   }
 
   public selectVariant(variant: ProductVariant): void {

@@ -1,44 +1,94 @@
-@if (isLoading) {
-  <h2>Carregando produtos...</h2>
-} @else if (error != null) {
-  <h2>Ops! Algo deu errado.</h2>
-  <p>{{ error }}</p>
-} @else if (product) {
-  <h1>{{ product.name }}</h1>
-  <p>{{ product.description }}</p>
-
-  <hr />
-
-  @if (selectedVariant) {
-    <div class="variant-details">
-      <h3>{{ selectedVariant.sku }}</h3>
-      <p>Preço: {{ selectedVariant.price | currency: 'BRL' }}</p>
-      <p>Em estoque: {{ selectedVariant.stockAmount }}</p>
-      <div class="add-to-cart-form">
-        <label for="quantity">Quantidade</label>
-
-        <input
-          type="number"
-          id="quantity"
-          [(ngModel)]="quantity"
-          min="1"
-          [max]="selectedVariant.stockAmount"
-        />
-      </div>
-      @if (variants.length > 0) {
-        <div class="variant-selector">
-          @for (variant of variants; track variant.id) {
-            <button
-              type="button"
-              (click)="selectVariant(variant)"
-              [disabled]="variant === selectedVariant"
-            >
-              {{ variant.sku }}
-            </button>
+<div class="product-page">
+  @if (isLoading) {
+    <h2>Carregando produtos...</h2>
+  } @else if (error != null) {
+    <h2>Ops! Algo deu errado.</h2>
+    <p>{{ error }}</p>
+  } @else if (product) {
+    <div class="product-page__images">
+      <img
+        class="product-page__images--main-image"
+        src="https://cdn.discordapp.com/attachments/1004052043905900635/1439956830783672443/image.png?ex=691c67cd&is=691b164d&hm=b467b6d34a0b85e8bdad989a4030080f3d3e51459cb7ea178776c3442f3e1ca5&"
+        alt=""
+      />
+    </div>
+    @if (selectedVariant) {
+      <div class="product-page__main-info">
+        <h1 class="product-page__main-info--name">{{ product.name }}</h1>
+        <h3 class="product-page__main-info--sku">{{ selectedVariant.sku }}</h3>
+        <h1 class="product-page__main-info--price">
+          {{ selectedVariant.price | currency: 'BRL' }}
+        </h1>
+        <div class="product-page__main-info--variants">
+          @if (variants.length > 0) {
+            @for (variant of variants; track variant.id) {
+              <button
+                class="product-page__main-info--variant-btn"
+                type="button"
+                (click)="selectVariant(variant)"
+                [disabled]="variant === selectedVariant"
+              >
+                {{ variant.sku }}
+              </button>
+            }
           }
         </div>
-      }
-      <button (click)="addToCart()">Adicionar ao carrinho</button>
-    </div>
+        <small class="product-page__main-info--stock-amount"
+          >Estoque: {{ selectedVariant.stockAmount }}</small
+        >
+        <br />
+        <div class="product-page__main-info--checkout">
+          <div class="product-page__main-info--cart-amount">
+            <button (click)="changeQuantity(-1)" class="product-page__main-info--amount-subtract">
+              -
+            </button>
+            <h3>{{ quantity }}</h3>
+            <button (click)="changeQuantity(1)" class="product-page__main-info--amount-add">
+              +
+            </button>
+          </div>
+          <button
+            class="btn btn--secondary product-page__main-info--checkout-btn"
+            (click)="addToCart()"
+          >
+            <mat-icon class="product-page__main-info--checkout-icon">shopping_cart</mat-icon>
+            <p>Carrinho</p>
+          </button>
+        </div>
+      </div>
+    }
   }
+</div>
+@if (product && selectedVariant) {
+  <div class="product-page__description">
+    <p class="product-page__description--text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in massa eu sapien
+      elementum commodo. Fusce pharetra, ex nec dapibus interdum, enim massa maximus arcu, in
+      sodales purus felis eget velit. Sed vulputate, nisl id facilisis sagittis, nisl orci fringilla
+      enim, eu posuere magna libero vitae neque. Nam sapien dui, lacinia quis sapien imperdiet,
+      volutpat tempor dui. Vivamus nunc risus, cursus eget augue nec, blandit suscipit lectus. Sed
+      nunc dui, dignissim et interdum eu, lobortis eu dolor. Duis sed malesuada nisl, a varius
+      turpis. In hac habitasse platea dictumst. Etiam massa arcu, gravida a mi quis, ornare interdum
+      nunc. Nunc vel ipsum dapibus, tempor neque ut, cursus ipsum. Morbi congue sapien eget pulvinar
+      scelerisque. Nullam sagittis fermentum egestas. Nam in urna ex.
+    </p>
+
+    <p class="product-page__description--text">
+      Suspendisse facilisis nibh a mauris condimentum placerat. Curabitur blandit feugiat risus, sit
+      amet vulputate tellus. Phasellus pretium turpis ipsum, at bibendum eros elementum in. Cras
+      condimentum, est at vestibulum condimentum, orci nibh tristique risus, vel sodales justo magna
+      et nunc. Integer semper velit elit, in sollicitudin turpis ullamcorper a. Suspendisse varius
+      volutpat turpis dignissim venenatis. Nullam dictum suscipit auctor. Aliquam iaculis non arcu
+      at tincidunt.
+    </p>
+    <p class="product-page__description--text">
+      Nam finibus purus vel lacus iaculis volutpat. Cras aliquam nulla lorem, in aliquet purus
+      tempor eu. Proin est elit, dignissim consectetur fermentum vulputate, vestibulum vitae nisi.
+      Sed mattis porttitor metus, vitae egestas felis finibus vitae. Integer fringilla velit eu
+      sollicitudin facilisis. Mauris et turpis in felis tempor eleifend. In eu purus nec felis
+      lobortis lobortis. Fusce pharetra odio vel mauris ultricies aliquet. Ut tempus diam non sem
+      pulvinar, a imperdiet augue maximus. Donec hendrerit nisi vel aliquam auctor. Vestibulum
+      faucibus lorem nec nisl varius hendrerit. Praesent quis condimentum lacus.
+    </p>
+  </div>
 }
