@@ -17,6 +17,8 @@ namespace GamerSpace.Infrastructure.Repositories
             var totalRecords = await _context.Products.CountAsync();
 
             var products = await _context.Products
+                .AsNoTracking()
+                .Include(p => p.Variants)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

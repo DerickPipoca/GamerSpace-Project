@@ -6,5 +6,6 @@ namespace GamerSpace.Application.DTOs
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public DateTime CreateTime { get; set; }
+        public decimal Price { get; set; }
     }
 }
