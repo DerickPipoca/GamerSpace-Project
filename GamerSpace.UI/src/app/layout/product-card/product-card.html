@@ -7,7 +7,7 @@
     />
     <div class="product-card__content">
       <h3 class="product-card__name">{{ productName }}</h3>
-      <p class="product-card__price">R$50,50</p>
+      <p class="product-card__price">{{ productPrice | currency: 'BRL' }}</p>
       <span class="product-card__shipping">Frete grátis</span>
     </div>
   </a>
