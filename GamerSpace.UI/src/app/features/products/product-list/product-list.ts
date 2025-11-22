@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { GroupedCategory } from '../../../shared/models/category-group.model';
 import { CategoryService } from '../../../core/services/category-service';
 import { ProductCard } from '../../../layout/product-card/product-card';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +16,7 @@ import { ProductCard } from '../../../layout/product-card/product-card';
   styleUrl: './product-list.scss',
 })
 export class ProductList {
-  @Input() categoryIds: number[] = [];
+  public categoryIds: number[] = [];
   public searchTerm: string = '';
 
   public productResult: PagedResult<Product> | null = null;
@@ -29,11 +30,19 @@ export class ProductList {
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.loadProducts();
-    this.loadCategories();
+    this.route.queryParamMap.subscribe((params: ParamMap) => {
+      this.searchTerm = '';
+      const textSearched = params.get('searchTerm');
+      if (textSearched) {
+        this.searchTerm = textSearched ? textSearched : '';
+      }
+      this.loadProducts();
+      this.loadCategories();
+    });
   }
 
   loadCategories(): void {
@@ -82,5 +91,17 @@ export class ProductList {
         console.error(err);
       },
     });
+  }
+  onCategoryChange(event: any, categoryId: number): void {
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      this.categoryIds.push(categoryId);
+    } else {
+      this.categoryIds = this.categoryIds.filter((id) => id !== categoryId);
+    }
+  }
+  searchWithCategory() {
+    this.loadProducts();
   }
 }

@@ -20,6 +20,10 @@
   margin: $padding-size 0;
 }
 
+.products__filters--item {
+  display: flex;
+}
+
 .products__filters--name {
   font-size: $font-size-h4;
   margin: $padding-size-half 0;
@@ -35,7 +39,7 @@
 .products__list--items {
   display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
 
   gap: 16px;
   margin-left: $padding-size-double;

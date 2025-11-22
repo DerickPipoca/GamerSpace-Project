@@ -10,10 +10,19 @@
       @for (group of categoryGroupResult; track group.typeId) {
         <h3 class="products__filters--title">{{ group.typeName }}</h3>
         @for (item of group.items; track item.id) {
-          <p class="products__filters--name">{{ item.name }}</p>
+          <div class="products__filters--item">
+            <input
+              class="products__filters--checkbox"
+              type="checkbox"
+              [value]="item.id"
+              (change)="onCategoryChange($event, item.id)"
+            />
+            <p class="products__filters--name">{{ item.name }}</p>
+          </div>
         }
         <hr />
       }
+      <button (click)="searchWithCategory()">Buscar</button>
     }
   </div>
   <div class="products__list">
