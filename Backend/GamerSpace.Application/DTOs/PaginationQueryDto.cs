@@ -8,5 +8,7 @@ namespace GamerSpace.Application.DTOs
 
         public int PageNumber { get => _pageNumber; set => _pageNumber = (value > 0) ? value : 1; }
         public int PageSize { get => _pageSize; set => _pageSize = (value > 0 && value <= MaxPageSize) ? value : MaxPageSize; }
+        public List<long>? CategoryIds { get; set; }
+        public string? SearchTerm { get; set; }
     }
 }

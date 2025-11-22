@@ -43,10 +43,22 @@ export class ProductService {
     return this.http.put<void>(url, dto);
   }
 
-  public getProducts(pageNumber: number, pageSize: number): Observable<PagedResult<Product>> {
+  public getProducts(
+    pageNumber: number,
+    pageSize: number,
+    categoryIds: number[] = [],
+    searchTerm: string = 'a',
+  ): Observable<PagedResult<Product>> {
     let params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
-      .set('pageSize', pageSize.toString());
+      .set('pageSize', pageSize.toString())
+      .set('searchTerm', searchTerm.toString());
+
+    if (categoryIds && categoryIds.length > 0) {
+      categoryIds.forEach((id) => {
+        params = params.append('CategoryIds', id.toString());
+      });
+    }
 
     return this.http.get<PagedResult<Product>>(this.apiUrl, { params });
   }

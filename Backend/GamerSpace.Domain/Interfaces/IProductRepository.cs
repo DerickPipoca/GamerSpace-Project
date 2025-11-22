@@ -9,6 +9,6 @@ namespace GamerSpace.Domain.Interfaces
         Task<ProductVariant?> GetVariantByIdAsync(long productVariantId);
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(long categoryId);
         Task<Product?> GetByIdWithCategoriesAsync(long productId);
-        Task<(IEnumerable<Product>, long)> GetAllPaginatedAsync(int page, int pageSize);
+        Task<(IEnumerable<Product>, long)> GetAllPaginatedAsync(int page, int pageSize, List<long>? categoryIds, String? searchTerm);
     }
 }

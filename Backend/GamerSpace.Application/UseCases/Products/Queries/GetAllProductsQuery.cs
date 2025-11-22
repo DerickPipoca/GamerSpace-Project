@@ -23,7 +23,7 @@ namespace GamerSpace.Application.UseCases.Products.Queries
         public async Task<PagedResultDto<ProductDto>> Execute(PaginationQueryDto paginationQueryDto)
         {
             var (products, totalRecords) = await _productRepository.GetAllPaginatedAsync(
-                paginationQueryDto.PageNumber, paginationQueryDto.PageSize
+                paginationQueryDto.PageNumber, paginationQueryDto.PageSize, paginationQueryDto.CategoryIds, paginationQueryDto.SearchTerm
             );
 
             var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);

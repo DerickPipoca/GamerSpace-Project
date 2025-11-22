@@ -12,18 +12,30 @@ namespace GamerSpace.Infrastructure.Repositories
             _context = gamerSpaceDbContext;
         }
 
-        public async Task<(IEnumerable<Product>, long)> GetAllPaginatedAsync(int page, int pageSize)
+        public async Task<(IEnumerable<Product>, long)> GetAllPaginatedAsync(int page, int pageSize, List<long>? categoryIds, String? searchTerm)
         {
             var totalRecords = await _context.Products.CountAsync();
 
-            var products = await _context.Products
-                .AsNoTracking()
-                .Include(p => p.Variants)
+            var products = _context.Products.AsNoTracking().Include(p => p.Variants).Include(p => p.ProductCategories).AsQueryable();
+
+            if (categoryIds != null && categoryIds.Any())
+            {
+                products = products.Where(p => p.ProductCategories.Any(pc => categoryIds.Contains(pc.CategoryId)));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                products = products.Where(p =>
+                    p.Name.Contains(searchTerm) ||
+                    (p.Description != null && p.Description.Contains(searchTerm)));
+            }
+
+            var productsPaginated = await products
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            return (products, totalRecords);
+            return (productsPaginated, totalRecords);
         }
 
         public async Task<Product?> GetByIdWithCategoriesAsync(long productId)

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { PagedResult } from '../../../shared/models/paged-result.model';
 import { Product } from '../../../shared/models/product.model';
 import { ProductService } from '../../../core/services/product-service';
@@ -15,6 +15,9 @@ import { ProductCard } from '../../../layout/product-card/product-card';
   styleUrl: './product-list.scss',
 })
 export class ProductList {
+  @Input() categoryIds: number[] = [];
+  public searchTerm: string = '';
+
   public productResult: PagedResult<Product> | null = null;
   public productIsLoading: boolean = true;
   public productError: string | null = null;
@@ -68,7 +71,7 @@ export class ProductList {
   }
 
   loadProducts(): void {
-    this.productService.getProducts(1, 10).subscribe({
+    this.productService.getProducts(1, 10, this.categoryIds, this.searchTerm).subscribe({
       next: (result) => {
         this.productResult = result;
         this.productIsLoading = false;
