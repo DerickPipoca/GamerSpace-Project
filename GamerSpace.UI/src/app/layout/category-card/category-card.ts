@@ -11,5 +11,5 @@ import { RouterLink } from '@angular/router';
 export class CategoryCard {
   @Input() categoryName: String = 'Mouses';
   @Input() categoryImageUrl: String = '../../../assets/images/illustrations/category_mouse.png';
-  @Input() categoryPathUrl: String = '/';
+  @Input() categoryPathId: number = 0;
 }

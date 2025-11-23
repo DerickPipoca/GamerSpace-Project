@@ -15,6 +15,7 @@
               class="products__filters--checkbox"
               type="checkbox"
               [value]="item.id"
+              [checked]="categoryIds.includes(item.id)"
               (change)="onCategoryChange($event, item.id)"
             />
             <p class="products__filters--name">{{ item.name }}</p>

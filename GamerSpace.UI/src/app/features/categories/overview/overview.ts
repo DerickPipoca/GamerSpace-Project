@@ -16,42 +16,42 @@ export class CategoriesOverview {
       {
         name: 'Mouses',
         imageUrl: '../../../assets/images/illustrations/category_mouse.png',
-        pathUrl: '/',
+        categoryId: 7,
       },
       {
         name: 'Teclados',
         imageUrl: '../../../assets/images/illustrations/category_keyboard.png',
-        pathUrl: '/',
+        categoryId: 8,
       },
       {
         name: 'Mouse pads',
         imageUrl: '../../../assets/images/illustrations/category_mousepad.png',
-        pathUrl: '/',
+        categoryId: 9,
       },
       {
         name: 'Headsets',
         imageUrl: '../../../assets/images/illustrations/category_headset.png',
-        pathUrl: '/',
+        categoryId: 10,
       },
       {
         name: 'Kits',
         imageUrl: '../../../assets/images/illustrations/category_kit.png',
-        pathUrl: '/',
+        categoryId: 11,
       },
       {
         name: 'Caixas de som',
         imageUrl: '../../../assets/images/illustrations/category_sound.png',
-        pathUrl: '/',
+        categoryId: 12,
       },
       {
         name: 'Microfones',
         imageUrl: '../../../assets/images/illustrations/category_microphone.png',
-        pathUrl: '/',
+        categoryId: 13,
       },
       {
         name: 'Webcams',
         imageUrl: '../../../assets/images/illustrations/category_webcam.png',
-        pathUrl: '/',
+        categoryId: 14,
       },
     ];
   }

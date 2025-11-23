@@ -40,6 +40,13 @@ export class ProductList {
       if (textSearched) {
         this.searchTerm = textSearched ? textSearched : '';
       }
+
+      this.categoryIds = [];
+      const categoriesSelected = params.get('CategoryIds');
+      if (categoriesSelected && categoriesSelected.length > 0) {
+        this.categoryIds = categoriesSelected.split(',').map(Number);
+      }
+
       this.loadProducts();
       this.loadCategories();
     });

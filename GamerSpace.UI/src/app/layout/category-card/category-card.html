@@ -1,5 +1,5 @@
 <div class="category-card">
-  <a routerLink="{{ categoryPathUrl }}">
+  <a [routerLink]="['/products']" [queryParams]="{ CategoryIds: categoryPathId }">
     <img class="category-card__image" src="{{ categoryImageUrl }}" alt="..." />
     <div class="category-card__content">
       <h3 class="category-card__title">{{ categoryName }}</h3>
