@@ -1,62 +1,89 @@
-<div class="cart-container">
-  <h1>Carrinho</h1>
-  @if (cartItems.length === 0) {
-    <div class="cart-empty">
-      <p>Seu carrinho está vazio</p>
+@if (cartItems.length === 0) {
+  <div class="cart-empty">
+    <div class="cart-empty__message">
+      <p>Seu carrinho está vazio ¯\_(ツ)_/¯</p>
       <a routerLink="/products">Continuar comprando</a>
     </div>
-  } @else {
-    <div class="cart-content">
-      <table class="cart-table">
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Subtotal</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (item of cartItems; track item.variant.id) {
-            <tr>
-              <td>{{ item.variant.sku }}</td>
-              <td>{{ item.variant.price | currency: 'BRL' }}</td>
-              <td>
-                <input
-                  type="number"
-                  [ngModel]="item.quantity"
-                  (change)="updateQuantity(item.variant.id, $event.target.valueAsNumber)"
-                  min="1"
-                  [max]="item.variant.stockAmount"
-                />
-              </td>
-              <td>{{ item.variant.price * item.quantity | currency: 'BRL' }}</td>
-              <td>
-                <button (click)="removeFromCart(item.variant.id)" class="btn-remove">
-                  Remover
-                </button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-      <div class="cart-summary">
-        <button (click)="clearCart()" class="btt-clear">Limpar carrinho</button>
-        <div class="total-display">
-          <h2>Total: {{ totalPrice | currency: 'BRL' }}</h2>
+  </div>
+} @else {
+  <div class="cart-page">
+    <div class="cart-page__content">
+      <h1 class="cart-page__content--cart-title">Carrinho</h1>
+      <hr />
+      @for (item of cartItems; track item.variant.id) {
+        <div class="cart-item">
+          <img class="cart-item__image" src="https://i.imgur.com/UrRyFxQ.png" />
+          <div class="cart-item__info">
+            <div class="cart-item__separation">
+              <h2 class="cart-item__name">{{ item.product.name }}</h2>
+              <h3 class="cart-item__price">{{ item.variant.price | currency: 'BRL' }}</h3>
+            </div>
+            <div class="cart-item__separation">
+              <h3 class="cart-item__sku">{{ item.variant.sku }}</h3>
+              <h4 class="cart-item__total-price">
+                {{ item.variant.price * item.quantity | currency: 'BRL' }}
+              </h4>
+            </div>
+
+            <div class="cart-item__actions">
+              <a class="cart-item__removal" (click)="removeFromCart(item.variant.id)"> Remover </a>
+              <input
+                class="cart-item__amount"
+                type="number"
+                [ngModel]="item.quantity"
+                (change)="updateQuantity(item.variant.id, $event.target.valueAsNumber)"
+                min="1"
+                [max]="item.variant.stockAmount"
+              />
+            </div>
+          </div>
         </div>
-        <button class="btn-checkout" (click)="onCheckout()" [disabled]="isCheckingOut">
+
+        <hr />
+      }
+      <button (click)="clearCart()" class="btn-clean-cart btn btn--secondary">
+        Limpar carrinho
+      </button>
+    </div>
+    <div class="cart-page__summary">
+      <h1 class="cart-page__summary--title">Resumo</h1>
+      <div class="cart-summary">
+        <div class="cart-summary__value-list">
+          <div class="cart-summary__value-item">
+            <span>Subtotal</span>
+            <span>{{ totalPrice | currency: 'BRL' }}</span>
+          </div>
+          <div class="cart-summary__value-item">
+            <span>Frete</span>
+            <span class="cart-summary__value-item--shipping">Grátis</span>
+          </div>
+          <div class="cart-summary__value-item">
+            <span>Desconto</span>
+            <span>n/a</span>
+          </div>
+
+          <hr />
+          <div class="cart-summary__value-item">
+            <h2 class="cart-summary__total">TOTAL:</h2>
+            <h2 class="cart-summary__total">{{ totalPrice | currency: 'BRL' }}</h2>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <div class="cart-summary__footer">
+        <button class="btn-checkout btn" (click)="onCheckout()" [disabled]="isCheckingOut">
           @if (isCheckingOut) {
             <span>Processando...</span>
           } @else {
-            <span>Finalizar Compra</span>
+            <span>Checkout</span>
           }
         </button>
-        @if (checkoutError) {
-          <div class="error-message">{{ checkoutError }}</div>
-        }
+        <a routerLink="/products">Continuar comprando</a>
       </div>
+
+      @if (checkoutError) {
+        <div class="error-message">{{ checkoutError }}</div>
+      }
     </div>
-  }
-</div>
+  </div>
+}
