@@ -68,19 +68,21 @@ export class ProductDetail implements OnInit {
   }
 
   addToCart(): void {
-    if (!this.selectedVariant) {
-      this.error = 'Por favor, selecione uma variante do produto.';
-      return;
+    if (this.product) {
+      if (!this.selectedVariant) {
+        this.error = 'Por favor, selecione uma variante do produto.';
+        return;
+      }
+
+      if (this.quantity <= 0) {
+        this.error = 'A quantidade deve ser pelo menos 1.';
+        return;
+      }
+
+      console.log(`Adicionando ${this.quantity} do item ${this.selectedVariant.sku} ao carrinho!`);
+
+      this.cartService.addToCart(this.product, this.selectedVariant, this.quantity);
     }
-
-    if (this.quantity <= 0) {
-      this.error = 'A quantidade deve ser pelo menos 1.';
-      return;
-    }
-
-    console.log(`Adicionando ${this.quantity} do item ${this.selectedVariant.sku} ao carrinho!`);
-
-    this.cartService.addToCart(this.selectedVariant, this.quantity);
   }
 
   changeQuantity(amount: number) {

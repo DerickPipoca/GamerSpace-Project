@@ -2,6 +2,7 @@ import { CartItem } from './../../shared/models/cart-item.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductVariant } from '../../shared/models/product-variant.model';
+import { Product } from '../../shared/models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -33,16 +34,17 @@ export class CartService {
     this.cartItemsSubject.next(items);
   }
 
-  public addToCart(variant: ProductVariant, quantity: number): void {
+  public addToCart(product: Product | null, variant: ProductVariant, quantity: number): void {
     const currentItems = [...this.cartItemsSubject.value];
 
     const existingItem = currentItems.find((item) => item.variant.id === variant.id);
 
     if (existingItem) {
       existingItem.quantity += quantity;
-    } else {
-      currentItems.push({ variant, quantity });
+    } else if (product != null) {
+      currentItems.push({ product, variant, quantity });
     }
+    console.log(product);
     this.saveAndNotify(currentItems);
   }
 
