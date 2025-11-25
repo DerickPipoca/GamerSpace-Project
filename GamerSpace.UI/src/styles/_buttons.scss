@@ -53,3 +53,12 @@
     background-color: mix($secondary-color, #ffffff, 80%);
   }
 }
+
+.btn--secondary-invalid {
+  background-color: mix($secondary-color, #ffffff, 80%);
+  color: $light-color;
+
+  &:hover {
+    background-color: mix($secondary-color, #ffffff, 80%);
+  }
+}

@@ -1,0 +1,140 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/buttons';
+
+.login-page {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-pages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.login-page__login {
+  background-color: $light-color;
+  color: $dark-color;
+  border-radius: $border-radius-card;
+  padding: 0 $padding-size-double * 3;
+  z-index: 2;
+}
+
+.login-page__login--title {
+  font-size: 2.75em;
+  margin-bottom: 0;
+  margin-top: $padding-size-double * 1.5;
+}
+
+.login-page__login--subtitle {
+  font-size: 2.75em;
+  font-weight: $font-weight-thin;
+  color: $secondary-color;
+  margin-top: $padding-size-double;
+}
+
+.login-form {
+  font-size: $font-size-h1;
+  display: flex;
+  margin-top: $padding-size;
+  input {
+    margin-left: -$padding-size;
+    margin-top: auto;
+    width: 100%;
+    font-family: $main-font;
+    font-size: 0.25em;
+    font-weight: $font-weight-regular;
+    border-color: $dark-color;
+    border-style: solid;
+    border-radius: $border-radius-input;
+    border-width: 3px;
+    height: 35px;
+  }
+}
+
+.login-form__invalid-input {
+  border-color: $secondary-color !important;
+}
+
+.login-form__invalid-messages {
+  display: grid;
+}
+
+.login-form__login--invalid {
+  color: $secondary-color;
+}
+
+.login-form__social {
+  text-align: center;
+  margin-bottom: $padding-size;
+  fa-icon {
+    font-size: $font-size-h1;
+    width: $font-size-h2;
+    height: $font-size-h2;
+    margin: $padding-size;
+  }
+  p {
+    margin: $padding-size;
+  }
+}
+
+.login-btn {
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+  font-size: 1.5em;
+  border-radius: 200px;
+  &[disabled] {
+    background-color: mix($secondary-color, #ffffff, 50%);
+  }
+  margin-bottom: $padding-size-double;
+}
+
+.login-page__register {
+  background-color: $dark-color;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: $light-color;
+  border-radius: 0 $border-radius-card $border-radius-card 0;
+  margin-left: -$padding-size;
+  z-index: 0;
+}
+
+.login-page__register--title {
+  margin-top: $padding-size-double;
+  margin-bottom: 0;
+  font-size: 124px;
+  line-height: 92px;
+}
+
+.login-page__register--subtitle {
+  margin-bottom: 0;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-thin;
+  line-height: 40px;
+}
+
+.login-page__register--message {
+  font-size: 1.5em;
+  font-weight: $font-weight-extra-thin;
+  text-align: center;
+  color: $primary-color;
+}
+
+.register-btn {
+  width: 40%;
+  margin: 0 auto;
+  display: block;
+  font-size: 1.5em;
+  border-radius: 200px;
+  &[disabled] {
+    background-color: mix($secondary-color, #ffffff, 50%);
+  }
+  margin-bottom: $padding-size-double;
+}
