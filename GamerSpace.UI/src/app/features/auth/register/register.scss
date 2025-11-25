@@ -1,0 +1,95 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/buttons';
+
+.register-page {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-page__container {
+  padding: $padding-size-double $padding-size-double * 4;
+  background-color: $dark-color;
+  color: $light-color;
+  border-radius: $border-radius-card;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-page__title {
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.register-form {
+  margin: auto 0;
+  display: flex;
+  font-size: $font-size-h3;
+  align-items: center;
+  align-content: center;
+  fa-icon {
+    margin-top: $padding-size-half/2;
+    margin-bottom: auto;
+  }
+}
+
+.register-form__input {
+  width: 100%;
+  display: grid;
+  input {
+    padding-left: $padding-size;
+    font-family: $main-font;
+    font-size: 0.75em;
+    border-style: none;
+    border-radius: $border-radius-input;
+  }
+}
+
+.register-form__invalid-messages {
+  min-height: 20px;
+  font-size: $font-size-small;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.register-form__checkbox {
+  input {
+    width: 20px;
+    height: 20px;
+  }
+  display: flex;
+}
+
+.register-form__checkbox--text {
+  display: grid;
+  p {
+    margin: 0;
+  }
+  a {
+    color: $info-color;
+    text-decoration: none;
+    margin-top: -6px;
+  }
+  small {
+    font-size: 1.75em;
+  }
+}
+
+.register-form__invalid-messages {
+  color: $secondary-color;
+}
+
+.register-btn {
+  width: 70%;
+  font-size: 1.5em;
+  margin: auto;
+  margin-top: $padding-size-double;
+  border-radius: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

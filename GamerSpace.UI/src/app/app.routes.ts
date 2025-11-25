@@ -10,6 +10,7 @@ import { ProductForm } from './features/admin/product-form/product-form';
 import { Home } from './features/home/home';
 import { CategoriesOverview } from './features/categories/overview/overview';
 import { AboutUs } from './features/about-us/about-us';
+import { Register } from './features/auth/register/register';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'products/:id', component: ProductDetail },
   { path: 'cart', component: CartPage },
   { path: 'login', component: Login },
+  { path: 'register', component: Register },
   {
     path: 'admin',
     canActivate: [adminGuard],

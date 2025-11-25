@@ -1,0 +1,85 @@
+<div class="register-page">
+  <div class="register-page__container">
+    <h1 class="register-page__title">REGISTRAR</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="register-form">
+        <fa-icon [icon]="['fas', 'user']" />
+        <div class="register-form__input">
+          <input type="text" id="fullName" formControlName="fullName" placeholder="Nome completo" />
+          <div class="register-form__invalid-messages">
+            @if (registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched) {
+              <small>O nome é obrigatório.</small>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="register-form">
+        <fa-icon [icon]="['fas', 'envelope']" />
+        <div class="register-form__input">
+          <input type="email" id="email" formControlName="email" placeholder="Seu email" />
+          <div class="register-form__invalid-messages">
+            @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+              @if (registerForm.get('email')?.hasError('required')) {
+                <small>O email é obrigatório.</small>
+              } @else if (registerForm.get('email')?.hasError('email')) {
+                <small>Digite um email válido.</small>
+              }
+            }
+          </div>
+        </div>
+      </div>
+      <div class="register-form">
+        <fa-icon [icon]="['fas', 'lock']" />
+        <div class="register-form__input">
+          <input type="password" id="password" formControlName="password" placeholder="Senha" />
+          <div class="register-form__invalid-messages">
+            @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+              <small>A senha é obrigatória.</small>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="register-form">
+        <fa-icon [icon]="['fas', 'lock']" />
+        <div class="register-form__input">
+          <input
+            type="password"
+            id="reEnterPassword"
+            formControlName="reEnterPassword"
+            placeholder="Repetir senha"
+          />
+          <div class="register-form__invalid-messages">
+            @if (
+              registerForm.get('reEnterPassword')?.invalid &&
+              registerForm.get('reEnterPassword')?.touched
+            ) {
+              <small>A confirmação de senha é obrigatória.</small>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="register-form__checkbox">
+        <input type="checkbox" id="serviceTerms" formControlName="serviceTerms" />
+        <div class="register-form__checkbox--text">
+          <p>Eu concordo com todos os</p>
+          <a href="">termos de serviço</a>
+          <div class="register-form__invalid-messages">
+            @if (
+              registerForm.get('serviceTerms')?.invalid && registerForm.get('serviceTerms')?.touched
+            ) {
+              <small class="register-form__invalid-messages">Você precisa aceitar os termos.</small>
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (error) {
+        <small>
+          {{ error }}
+        </small>
+      }
+
+      <button class="register-btn btn--primary btn" type="submit">Registrar</button>
+    </form>
+  </div>
+</div>
