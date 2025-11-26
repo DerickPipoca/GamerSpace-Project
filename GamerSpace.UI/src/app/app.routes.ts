@@ -11,6 +11,7 @@ import { Home } from './features/home/home';
 import { CategoriesOverview } from './features/categories/overview/overview';
 import { AboutUs } from './features/about-us/about-us';
 import { Register } from './features/auth/register/register';
+import { NotFound } from './features/not-found/not-found';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,4 +33,6 @@ export const routes: Routes = [
       { path: 'products/edit/:id', component: ProductForm },
     ],
   },
+  { path: 'not-found', component: NotFound },
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];

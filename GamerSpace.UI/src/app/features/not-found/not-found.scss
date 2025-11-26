@@ -1,0 +1,42 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/base';
+
+body {
+  background-image:
+    url('http://noisepng.com/200-92-6.png'), linear-gradient(to left, $info-color, $secondary-color);
+}
+
+.not-found-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  height: 100vh;
+}
+
+.not-found-page__info {
+  align-content: center;
+}
+
+.not-found-page__info--title {
+  font-size: 7em;
+  line-height: 0.9em;
+  margin: 0;
+}
+
+.not-found-page__info--subtitle {
+  color: $light-color;
+  font-size: 1.5em;
+  font-weight: $font-weight-thin;
+}
+
+.not-found-page__info--link {
+  color: $light-color;
+}
+
+.not-found-page__illustration {
+  align-content: center;
+}
+
+.not-found-page__image {
+  height: 100vh;
+}

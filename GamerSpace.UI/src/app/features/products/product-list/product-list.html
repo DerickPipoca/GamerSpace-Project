@@ -34,18 +34,26 @@
       <p>{{ productError }}</p>
     } @else {
       @if (!productIsLoading && productResult != null) {
-        <p class="products__list--found-amount">
-          Nós encontramos {{ productResult.items.length }} resultados
-        </p>
-        <div class="products__list--items">
-          @for (product of productResult.items; track $index) {
-            <app-product-card
-              [productName]="product.name"
-              [productId]="product.id"
-              [productPrice]="product.price"
-            />
-          }
-        </div>
+        @if (productResult.items.length <= 0) {
+          <p class="products__list--found-amount">Nós encontramos <i>nenhum</i> resultado</p>
+          <p class="products__list--no-results">
+            Não encontramos nada <br />
+            ¯\_(ツ)_/¯
+          </p>
+        } @else {
+          <p class="products__list--found-amount">
+            Nós encontramos <i>{{ productResult.items.length }}</i> resultados
+          </p>
+          <div class="products__list--items">
+            @for (product of productResult.items; track $index) {
+              <app-product-card
+                [productName]="product.name"
+                [productId]="product.id"
+                [productPrice]="product.price"
+              />
+            }
+          </div>
+        }
       }
     }
   </div>
