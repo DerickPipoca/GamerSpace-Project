@@ -4,4 +4,5 @@ export interface Product {
   description: string | null;
   createTime: Date;
   price: number;
+  imageUrl: string | null;
 }

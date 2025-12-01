@@ -3,5 +3,6 @@ export interface ProductVariant {
   sku: string;
   price: number;
   description: string | null;
+  imageUrl: string | null;
   stockAmount: number;
 }

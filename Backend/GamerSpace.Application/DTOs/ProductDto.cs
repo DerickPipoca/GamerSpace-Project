@@ -7,5 +7,6 @@ namespace GamerSpace.Application.DTOs
         public string? Description { get; set; }
         public DateTime CreateTime { get; set; }
         public decimal Price { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

@@ -6,11 +6,7 @@
     <p>{{ error }}</p>
   } @else if (product) {
     <div class="product-page__images">
-      <img
-        class="product-page__images--main-image"
-        src="https://cdn.discordapp.com/attachments/1004052043905900635/1439956830783672443/image.png?ex=691c67cd&is=691b164d&hm=b467b6d34a0b85e8bdad989a4030080f3d3e51459cb7ea178776c3442f3e1ca5&"
-        alt=""
-      />
+      <img class="product-page__images--main-image" src="{{ selectedVariant?.imageUrl }}" alt="" />
     </div>
     @if (selectedVariant) {
       <div class="product-page__main-info">

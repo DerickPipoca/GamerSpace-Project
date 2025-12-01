@@ -74,6 +74,7 @@ export class ProductForm implements OnInit {
           sku: [variant.sku, Validators.required],
           price: [variant.price, [Validators.required, Validators.min(0.01)]],
           stockAmount: [variant.stockAmount, [Validators.required, Validators.min(0)]],
+          imageUrl: [variant.imageUrl],
           description: [variant.description],
         }),
       );
@@ -90,6 +91,7 @@ export class ProductForm implements OnInit {
       sku: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0.01)]],
       stockAmount: [0, [Validators.required, Validators.min(0)]],
+      imageUrl: [''],
       description: [''],
     });
   }

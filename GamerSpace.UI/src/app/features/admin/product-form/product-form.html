@@ -23,6 +23,12 @@
       @for (variantGroup of variants.controls; track $index) {
         <div [formGroupName]="$index" class="variant-form-group">
           <h4>Variante #{{ $index + 1 }}</h4>
+
+          <div class="form-group">
+            <label for="image-{{ $index }}">Url da Imagem</label>
+            <input id="image-{{ $index }}" type="text" formControlName="imageUrl" />
+          </div>
+
           <div class="form-group">
             <label for="sku-{{ $index }}">SKU</label>
             <input id="sku-{{ $index }}" type="text" formControlName="sku" />

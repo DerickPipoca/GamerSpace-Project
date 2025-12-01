@@ -9,7 +9,8 @@ namespace GamerSpace.Application.Mappings
         public MappingProfile()
         {
             CreateMap<Product, ProductDto>()
-                .ForMember(x => x.Price, opt => opt.MapFrom(src => src.Variants.Any() ?  src.Variants.Min(v => v.Price) : 0));
+                .ForMember(x => x.Price, opt => opt.MapFrom(src => src.Variants.Any() ? src.Variants.Min(v => v.Price) : 0))
+                .ForMember(x => x.ImageUrl, opt => opt.MapFrom(src => src.Variants.FirstOrDefault() != null ? src.Variants.FirstOrDefault()!.ImageUrl : null));
 
             CreateMap<ProductVariant, ProductVariantDto>();
 

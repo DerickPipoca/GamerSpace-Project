@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductCard {
   @Input() productName: String = 'Mouses';
-  @Input() productImageUrl: String = '/';
+  @Input() productImageUrl: String | null = '/';
   @Input() productPrice: number = 0;
   @Input() productId: number = 0;
 }
