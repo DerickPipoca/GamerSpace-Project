@@ -32,10 +32,6 @@ namespace GamerSpace.Domain.Entities
             {
                 throw new Exception();
             }
-            if (string.IsNullOrWhiteSpace(imageUrl))
-            {
-                throw new Exception();
-            }
             if (price.HasValue && price.Value < 0)
                 throw new Exception();
 
