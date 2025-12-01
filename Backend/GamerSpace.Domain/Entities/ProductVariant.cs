@@ -46,7 +46,7 @@ namespace GamerSpace.Domain.Entities
             Price = price ?? Price;
             Description = description ?? Description;
             StockAmount = stockAmount ?? StockAmount;
-            ImageUrl = imageUrl ?? ImageUrl;
+            ImageUrl = imageUrl;
         }
 
         public void RemoveStock(short quantity)
