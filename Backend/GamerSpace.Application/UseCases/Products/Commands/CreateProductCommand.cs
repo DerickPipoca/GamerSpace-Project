@@ -34,7 +34,8 @@ namespace GamerSpace.Application.UseCases.Products.Commands
                         variantDto.SKU,
                         variantDto.Price,
                         variantDto.Description,
-                        variantDto.StockAmount);
+                        variantDto.StockAmount,
+                        variantDto.ImageUrl);
 
                     product.Variants.Add(variant);
                 }

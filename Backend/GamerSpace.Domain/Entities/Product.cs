@@ -32,13 +32,13 @@ namespace GamerSpace.Domain.Entities
             Variants.Add(variant);
         }
 
-        public void UpdateVariant(long productVariantId,string? sku, string? description, decimal? price, short? stockAmount)
+        public void UpdateVariant(long productVariantId,string? sku, string? description, decimal? price, short? stockAmount, string? imageUrl)
         {
             var productVariant = Variants.FirstOrDefault(x => x.Id == productVariantId);
             if (productVariant == null)
                 throw new KeyNotFoundException($"ProductVariant with ID {productVariantId} not found.");
 
-            productVariant.Update(sku, price, description, stockAmount);
+            productVariant.Update(sku, price, description, stockAmount, imageUrl);
         }
 
         public void RemoveVariant(long productVariantId)

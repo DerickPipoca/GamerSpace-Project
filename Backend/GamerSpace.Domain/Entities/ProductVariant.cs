@@ -8,6 +8,7 @@ namespace GamerSpace.Domain.Entities
         public decimal Price { get; private set; }
         public string? Description { get; private set; }
         public short StockAmount { get; private set; }
+        public string? ImageUrl { get; private set; } = String.Empty;
 
         public long ProductId { get; private set; }
         public Product Product { get; private set; } = null!;
@@ -16,17 +17,22 @@ namespace GamerSpace.Domain.Entities
 
         private ProductVariant() { }
 
-        public ProductVariant(string sku, decimal price, string? description, short stockAmount)
+        public ProductVariant(string sku, decimal price, string? description, short stockAmount, string? imageUrl)
         {
             SKU = sku;
             Price = price;
             Description = description;
             StockAmount = stockAmount;
+            ImageUrl = imageUrl;
         }
 
-        public void Update(string? sku,decimal? price, string? description, short? stockAmount)
+        public void Update(string? sku,decimal? price, string? description, short? stockAmount, string? imageUrl)
         {
             if (string.IsNullOrWhiteSpace(sku))
+            {
+                throw new Exception();
+            }
+            if (string.IsNullOrWhiteSpace(imageUrl))
             {
                 throw new Exception();
             }
@@ -40,6 +46,7 @@ namespace GamerSpace.Domain.Entities
             Price = price ?? Price;
             Description = description ?? Description;
             StockAmount = stockAmount ?? StockAmount;
+            ImageUrl = imageUrl ?? ImageUrl;
         }
 
         public void RemoveStock(short quantity)

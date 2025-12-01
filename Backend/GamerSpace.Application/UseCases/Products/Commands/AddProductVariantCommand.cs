@@ -33,7 +33,8 @@ namespace GamerSpace.Application.UseCases.Products.Commands
                 createProductVariantDto.SKU,
                 createProductVariantDto.Price,
                 createProductVariantDto.Description,
-                createProductVariantDto.StockAmount
+                createProductVariantDto.StockAmount,
+                createProductVariantDto.ImageUrl
                 );
 
             product.AddVariant(productVariant);

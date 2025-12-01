@@ -28,7 +28,15 @@ namespace GamerSpace.Application.UseCases.Products.Commands
             if (product == null)
                 throw new KeyNotFoundException($"Product with ID {productId} not found.");
 
-            product.UpdateVariant(productVariantId, updateProductVariantDto.SKU, updateProductVariantDto.Description, updateProductVariantDto.Price, updateProductVariantDto.StockAmount);
+            product.UpdateVariant(
+                productVariantId,
+                updateProductVariantDto.SKU,
+                updateProductVariantDto.Description,
+                updateProductVariantDto.Price,
+                updateProductVariantDto.StockAmount,
+                updateProductVariantDto.ImageUrl
+                );
+                
             await _unitOfWork.SaveChangesAsync();
         }
     }
