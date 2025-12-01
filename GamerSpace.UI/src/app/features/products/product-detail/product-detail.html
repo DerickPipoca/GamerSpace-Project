@@ -6,7 +6,15 @@
     <p>{{ error }}</p>
   } @else if (product) {
     <div class="product-page__images">
-      <img class="product-page__images--main-image" src="{{ selectedVariant?.imageUrl }}" alt="" />
+      @if (selectedVariant?.imageUrl) {
+        <img
+          class="product-page__images--main-image"
+          src="{{ selectedVariant?.imageUrl }}"
+          alt=""
+        />
+      } @else {
+        <div class="product-page__images--placeholder"></div>
+      }
     </div>
     @if (selectedVariant) {
       <div class="product-page__main-info">
@@ -24,7 +32,11 @@
                 (click)="selectVariant(variant)"
                 [disabled]="variant === selectedVariant"
               >
-                {{ variant.sku }}
+                @if (variant.imageUrl) {
+                  <img src="{{ variant.imageUrl }}" alt="" />
+                } @else {
+                  {{ variant.sku }}
+                }
               </button>
             }
           }
