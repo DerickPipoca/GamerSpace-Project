@@ -1,0 +1,14 @@
+@use '../../../styles/variables' as *;
+div {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding-top: 15%;
+}
+
+h1 {
+  color: $dark-color;
+  background-color: $light-color;
+  padding: $padding-size-double;
+  border-radius: $border-radius-input;
+}
