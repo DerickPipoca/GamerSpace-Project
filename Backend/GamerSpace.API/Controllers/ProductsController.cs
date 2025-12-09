@@ -22,8 +22,6 @@ namespace GamerSpace.API.Controllers
         private readonly IUpdateProductVariantCommand _updateProductVariantCommand;
         private readonly IDeleteProductVariantCommand _deleteProductVariantCommand;
 
-        private readonly IUpdateProductCategoriesCommand _updateProductCategoriesCommand;
-
         public ProductsController(
             IGetAllProductsQuery getAllProductsQuery,
             IGetProductByIdQuery getProductByIdQuery,
@@ -34,8 +32,7 @@ namespace GamerSpace.API.Controllers
             IAddProductVariantCommand addProductVariantCommand,
             IUpdateProductVariantCommand updateProductVariantCommand,
             IDeleteProductCommand deleteProductCommand,
-            IDeleteProductVariantCommand deleteProductVariantCommand,
-            IUpdateProductCategoriesCommand updateProductCategoriesCommand
+            IDeleteProductVariantCommand deleteProductVariantCommand
             )
         {
             _getAllProductsQuery = getAllProductsQuery;
@@ -49,8 +46,6 @@ namespace GamerSpace.API.Controllers
             _addProductVariantCommand = addProductVariantCommand;
             _updateProductVariantCommand = updateProductVariantCommand;
             _deleteProductVariantCommand = deleteProductVariantCommand;
-
-            _updateProductCategoriesCommand = updateProductCategoriesCommand;
         }
 
         [HttpGet]
@@ -111,14 +106,6 @@ namespace GamerSpace.API.Controllers
         public async Task<IActionResult> PutProductVariant(long productId, long productVariantId, [FromBody] UpdateProductVariantDto updateProductVariantDto)
         {
             await _updateProductVariantCommand.Execute(productId, productVariantId, updateProductVariantDto);
-            return NoContent();
-        }
-
-        [HttpPut("{productId}/categories")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutProductCategories(long productId, [FromBody] UpdateProductCategoriesDto updateProductCategoriesDto)
-        {
-            await _updateProductCategoriesCommand.Execute(productId, updateProductCategoriesDto.CategoryIds);
             return NoContent();
         }
 

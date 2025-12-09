@@ -21,7 +21,7 @@ namespace GamerSpace.Application.UseCases.Products.Queries
 
         public async Task<IEnumerable<ProductVariantDto>?> Execute(long productId)
         {
-            var product = await _productRepository.GetByIdWithVariantsAsync(productId);
+            var product = await _productRepository.GetByIdWithIncludesAsync(productId);
 
             if (product == null)
                 throw new KeyNotFoundException($"Product with ID {productId} not found.");

@@ -38,15 +38,9 @@ namespace GamerSpace.Infrastructure.Repositories
             return (productsPaginated, totalRecords);
         }
 
-        public async Task<Product?> GetByIdWithCategoriesAsync(long productId)
+        public async Task<Product?> GetByIdWithIncludesAsync(long productId)
         {
-            var product = await _context.Products.Include(p => p.ProductCategories).FirstOrDefaultAsync(p => p.Id == productId);
-            return product;
-        }
-
-        public async Task<Product?> GetByIdWithVariantsAsync(long productId)
-        {
-            var product = await _context.Products.Include(p => p.Variants).FirstOrDefaultAsync(p => p.Id == productId);
+            var product = await _context.Products.Include(p => p.Variants).Include(p => p.ProductCategories).FirstOrDefaultAsync(p => p.Id == productId);
             return product;
         }
 

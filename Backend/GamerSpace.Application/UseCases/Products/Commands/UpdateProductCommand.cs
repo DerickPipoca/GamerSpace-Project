@@ -29,7 +29,7 @@ namespace GamerSpace.Application.UseCases.Products.Commands
             if (product == null)
                 throw new KeyNotFoundException($"Product with ID {productId} not found.");
 
-            product.Update(updateProductDto.Name, updateProductDto.Description);
+            product.Update(updateProductDto.Name, updateProductDto.Description, updateProductDto.CategoryIds);
             _productRepository.Update(product);
             await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<ProductDto>(product);

@@ -21,10 +21,19 @@ namespace GamerSpace.Domain.Entities
             Description = description;
         }
 
-        public void Update(string? name, string? description)
+        public void Update(string? name, string? description, List<long>? categories)
         {
             Name = name ?? Name;
             Description = description ?? Description;
+            if (categories != null)
+            {
+                List<ProductCategory> newCategories = [];
+                foreach (var categoryId in categories)
+                {
+                    newCategories.Add(new ProductCategory() { ProductId = Id, CategoryId = categoryId });
+                }
+                ProductCategories = newCategories;
+            }
         }
 
         public void AddVariant(ProductVariant variant)

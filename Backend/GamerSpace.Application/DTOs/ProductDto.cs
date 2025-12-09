@@ -8,5 +8,6 @@ namespace GamerSpace.Application.DTOs
         public DateTime CreateTime { get; set; }
         public decimal Price { get; set; }
         public string? ImageUrl { get; set; }
+        public IEnumerable<long>? CategoryIds { get; set; }
     }
 }

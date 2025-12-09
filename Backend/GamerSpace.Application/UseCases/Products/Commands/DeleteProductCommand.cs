@@ -22,7 +22,7 @@ namespace GamerSpace.Application.UseCases.Products.Commands
 
         public async Task Execute(long productId)
         {
-            var product = await _productRepository.GetByIdWithVariantsAsync(productId);
+            var product = await _productRepository.GetByIdWithIncludesAsync(productId);
 
             if (product == null)
                 throw new KeyNotFoundException($"Product with ID {productId} not found.");

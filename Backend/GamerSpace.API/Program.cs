@@ -70,8 +70,6 @@ builder.Services.AddScoped<ICreateCategoryCommand, CreateCategoryCommand>();
 builder.Services.AddScoped<IUpdateCategoryCommand, UpdateCategoryCommand>();
 builder.Services.AddScoped<IDeleteCategoryCommand, DeleteCategoryCommand>();
 
-builder.Services.AddScoped<IUpdateProductCategoriesCommand, UpdateProductCategoriesCommand>();
-
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRegisterUserCommand, RegisterUserCommand>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
