@@ -5,4 +5,5 @@ export interface Product {
   createTime: Date;
   price: number;
   imageUrl: string | null;
+  categoryIds: number[] | null;
 }

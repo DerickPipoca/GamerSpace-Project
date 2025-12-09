@@ -7,6 +7,9 @@ import { forkJoin, Observable } from 'rxjs';
 import { ProductVariant } from '../../../shared/models/product-variant.model';
 import { UpdateProductVariantDto } from '../../../shared/models/update-product-variant.model';
 import { CreateProductVariantDto } from '../../../shared/models/create-product-variant.model';
+import { Category } from '../../../shared/models/category.model';
+import { GroupedCategory } from '../../../shared/models/category-group.model';
+import { CategoryService } from '../../../core/services/category-service';
 
 @Component({
   selector: 'app-product-form',
@@ -19,6 +22,8 @@ export class ProductForm implements OnInit {
   public productForm!: FormGroup;
   public error: string | null = null;
   public isLoading = false;
+  public selectedGroupIndex: number = 0;
+  public groupedCategoryList: GroupedCategory[] = [];
 
   private currentProductId: number | null = null;
   public isEditMode = false;
@@ -26,6 +31,7 @@ export class ProductForm implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
   ) {}
@@ -36,7 +42,12 @@ export class ProductForm implements OnInit {
     this.productForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.maxLength(1200)]],
+      categoryIds: [[], Validators.required],
       variants: this.fb.array([], Validators.required),
+    });
+
+    this.categoryService.getCategories().subscribe((categories) => {
+      this.groupedCategoryList = this.populateCategoryGroups(categories);
     });
 
     if (idParam) {
@@ -46,10 +57,21 @@ export class ProductForm implements OnInit {
 
       forkJoin({
         product: this.productService.getProductById(this.currentProductId),
+        categories: this.categoryService.getCategories(),
         variants: this.productService.getProductVariants(this.currentProductId),
       }).subscribe({
         next: (result) => {
-          this.productForm.patchValue(result.product);
+          this.groupedCategoryList = this.populateCategoryGroups(result.categories);
+
+          const productData = result.product as any;
+
+          const existingCategoryIds = (productData.categoryIds || []).map((id: any) => Number(id));
+
+          this.productForm.patchValue({
+            name: result.product.name,
+            description: result.product.description,
+            categoryIds: existingCategoryIds,
+          });
 
           this.populateVariantsFormArray(result.variants);
           this.isLoading = false;
@@ -63,6 +85,29 @@ export class ProductForm implements OnInit {
       this.isEditMode = false;
       this.addVariant();
     }
+  }
+
+  private populateCategoryGroups(categories: Category[]) {
+    const groupMap = new Map<number, GroupedCategory>();
+
+    for (const category of categories) {
+      let group = groupMap.get(category.typeId);
+
+      if (!group) {
+        group = {
+          typeId: category.typeId,
+          typeName: category.typeName,
+          items: [],
+        };
+        groupMap.set(category.typeId, group);
+      }
+
+      group.items.push({
+        id: category.id,
+        name: category.name,
+      });
+    }
+    return Array.from(groupMap.values());
   }
 
   private populateVariantsFormArray(variants: ProductVariant[]) {
@@ -125,6 +170,20 @@ export class ProductForm implements OnInit {
     }
   }
 
+  onCategoryChange(e: any, categoryId: number) {
+    const categoryIds: number[] = this.productForm.get('categoryIds')?.value || [];
+
+    if (e.target.checked) {
+      categoryIds.push(categoryId);
+    } else {
+      const index = categoryIds.indexOf(categoryId);
+      if (index > -1) {
+        categoryIds.splice(index, 1);
+      }
+    }
+    this.productForm.get('categoryIds')?.setValue(categoryIds);
+  }
+
   onSubmit(): void {
     if (this.productForm.invalid) {
       this.error = 'Formulário inválido.';
@@ -141,8 +200,10 @@ export class ProductForm implements OnInit {
       const updateDto = {
         name: formData.name,
         description: formData.description,
+        categoryIds: formData.categoryIds,
       };
 
+      console.log(updateDto);
       updateTasks.push(this.productService.updateProduct(this.currentProductId, updateDto));
 
       this.variants.controls.forEach((control) => {

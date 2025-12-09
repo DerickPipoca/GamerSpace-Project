@@ -18,6 +18,33 @@
       <textarea id="description" formControlName="description" rows="5"></textarea>
     </div>
     <hr />
+    <div class="form-group">
+      <label for="groupSelect">Filtrar por Tipo de Categoria:</label>
+      <select id="groupSelect" (change)="selectedGroupIndex = +$any($event.target).value">
+        @for (group of groupedCategoryList; track $index; let i = $index) {
+          <option [value]="i">{{ group.typeName }}</option>
+        }
+      </select>
+      @if (groupedCategoryList.length > 0) {
+        <h3>Categorias de: {{ groupedCategoryList[selectedGroupIndex].typeName }}</h3>
+        <div class="checkbox-list">
+          @for (item of groupedCategoryList[selectedGroupIndex].items; track item.id) {
+            <div class="form-group-checkbox">
+              <input
+                type="checkbox"
+                [id]="'category-' + item.id"
+                [checked]="productForm.get('categoryIds')?.value.includes(item.id)"
+                (change)="onCategoryChange($event, item.id)"
+              />
+              <label [for]="'category-' + item.id">
+                {{ item.name }}
+              </label>
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <hr />
     <h3>Variantes</h3>
     <div formArrayName="variants">
       @for (variantGroup of variants.controls; track $index) {
