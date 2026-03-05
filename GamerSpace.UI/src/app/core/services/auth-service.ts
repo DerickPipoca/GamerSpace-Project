@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { User } from '../../shared/models/user.model';
 import { LoginDto } from '../../shared/models/login.model';
 import { LoginResponse } from '../../shared/models/login-response.model';
@@ -17,7 +17,11 @@ export class AuthService {
 
   private currentUserSubjetct = new BehaviorSubject<User | null>(null);
 
-  private currentUser$ = this.currentUserSubjetct.asObservable();
+  public currentUser$ = this.currentUserSubjetct.asObservable();
+
+  public isAdmin$: Observable<boolean> = this.currentUser$.pipe(
+    map((user) => user !== null && user.role === 'Admin'),
+  );
 
   constructor(private http: HttpClient) {
     this.loadUserFromToken();
@@ -40,6 +44,10 @@ export class AuthService {
     this.currentUserSubjetct.next(null);
   }
 
+  public isAuthenticated(): boolean {
+    return !!localStorage.getItem(this.JWT_TOKEN_KEY);
+  }
+
   private saveTokenAndNotify(token: string): void {
     localStorage.setItem(this.JWT_TOKEN_KEY, token);
 
@@ -55,7 +63,7 @@ export class AuthService {
       id: decodedToken.nameid,
       email: decodedToken.email,
       role: decodedToken.role,
-      fullName: '',
+      fullName: decodedToken.unique_name,
     };
   }
 
