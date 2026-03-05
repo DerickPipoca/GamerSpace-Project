@@ -27,12 +27,29 @@ namespace GamerSpace.Domain.Entities
             Description = description ?? Description;
             if (categories != null)
             {
-                List<ProductCategory> newCategories = [];
-                foreach (var categoryId in categories)
+                var categoriesToRemove = ProductCategories
+                    .Where(pc => !categories.Contains(pc.CategoryId))
+                    .ToList();
+
+                foreach (var categoryToRemove in categoriesToRemove)
                 {
-                    newCategories.Add(new ProductCategory() { ProductId = Id, CategoryId = categoryId });
+                    ProductCategories.Remove(categoryToRemove);
                 }
-                ProductCategories = newCategories;
+
+                var existingCategoryIds = ProductCategories.Select(pc => pc.CategoryId).ToList();
+
+                var categoriesToAdd = categories
+                    .Where(categoryId => !existingCategoryIds.Contains(categoryId))
+                    .ToList();
+
+                foreach (var categoryId in categoriesToAdd)
+                {
+                    ProductCategories.Add(new ProductCategory
+                    {
+                        ProductId = this.Id,
+                        CategoryId = categoryId
+                    });
+                }
             }
         }
 
@@ -41,7 +58,7 @@ namespace GamerSpace.Domain.Entities
             Variants.Add(variant);
         }
 
-        public void UpdateVariant(long productVariantId,string? sku, string? description, decimal? price, short? stockAmount, string? imageUrl)
+        public void UpdateVariant(long productVariantId, string? sku, string? description, decimal? price, short? stockAmount, string? imageUrl)
         {
             var productVariant = Variants.FirstOrDefault(x => x.Id == productVariantId);
             if (productVariant == null)

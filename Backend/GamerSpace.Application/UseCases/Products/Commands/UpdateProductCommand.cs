@@ -24,7 +24,7 @@ namespace GamerSpace.Application.UseCases.Products.Commands
 
         public async Task<ProductDto?> Execute(long productId, UpdateProductDto updateProductDto)
         {
-            var product = await _productRepository.GetByIdAsync(productId);
+            var product = await _productRepository.GetByIdWithIncludesAsync(productId);
 
             if (product == null)
                 throw new KeyNotFoundException($"Product with ID {productId} not found.");
