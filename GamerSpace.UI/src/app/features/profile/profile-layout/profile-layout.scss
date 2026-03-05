@@ -1,0 +1,65 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/buttons';
+
+.profile {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  gap: $padding-size;
+  height: 100%;
+  margin-top: $padding-size-double;
+  margin-bottom: $padding-size-double;
+}
+
+.profile-leftbar {
+  color: $light-color;
+  padding: $padding-size-double;
+  background-color: $dark-color;
+  border-radius: 16px;
+  margin-bottom: auto;
+  font-size: $font-size-leftbar;
+  min-height: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-leftbar__list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.profile-leftbar__item {
+  padding-bottom: $padding-size;
+}
+
+.profile-leftbar__item--title {
+  width: 100%;
+  font-weight: $font-weight-bold;
+  text-align: center;
+}
+
+.profile-leftbar__leave {
+  margin-top: auto;
+}
+
+.profile-leftbar__leave-bnt {
+  width: 50%;
+}
+
+.profile-content {
+  color: $dark-color;
+  padding: $padding-size;
+  width: 100%;
+  background-color: $light-color;
+  border-radius: 16px;
+  margin-bottom: auto;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}

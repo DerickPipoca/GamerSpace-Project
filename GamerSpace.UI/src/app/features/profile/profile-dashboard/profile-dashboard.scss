@@ -1,0 +1,10 @@
+@use '../../../../styles/variables' as *;
+
+.dashboard-title {
+  font-size: $font-size-h3;
+  text-align: center;
+}
+
+.dashboard-item {
+  font-size: 1.5em;
+}

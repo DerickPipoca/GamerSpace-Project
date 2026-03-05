@@ -13,6 +13,9 @@ import { AboutUs } from './features/about-us/about-us';
 import { Register } from './features/auth/register/register';
 import { NotFound } from './features/not-found/not-found';
 import { UnderConstruction } from './features/under-construction/under-construction';
+import { ProfileDashboard } from './features/profile/profile-dashboard/profile-dashboard';
+import { authGuard } from './core/guards/auth-guard';
+import { ProfileLayout } from './features/profile/profile-layout/profile-layout';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,8 +28,15 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   {
+    path: 'profile',
+    canActivate: [authGuard],
+    component: ProfileLayout,
+    children: [{ path: '', component: ProfileDashboard }],
+  },
+  {
     path: 'admin',
     canActivate: [adminGuard],
+    component: ProfileLayout,
     children: [
       { path: '', component: AdminDashboard },
       { path: 'products', component: ProductManagement },

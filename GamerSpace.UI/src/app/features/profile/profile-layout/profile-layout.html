@@ -1,0 +1,25 @@
+<div class="profile">
+  <div class="profile-leftbar">
+    <div class="profile-leftbar__list">
+      <div class="profile-leftbar__item">
+        <a class="profile-leftbar__link" routerLink="/profile">Perfil</a>
+      </div>
+      @if (isAdmin$) {
+        <div class="profile-leftbar__item--title">
+          <p>Admin</p>
+        </div>
+        <div class="profile-leftbar__item">
+          <a class="profile-leftbar__link" routerLink="/admin/products">Produtos</a>
+        </div>
+      }
+      <div class="profile-leftbar__leave">
+        <button class="btn btn--secondary profile-leftbar__leave-bnt" (click)="logout()">
+          Sair
+        </button>
+      </div>
+    </div>
+  </div>
+  <main class="profile-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
