@@ -13,6 +13,7 @@ using GamerSpace.Application.UseCases.Products.Commands;
 using GamerSpace.Application.UseCases.Products.Queries;
 using GamerSpace.Application.UseCases.Users.Commands;
 using GamerSpace.Application.Validators.Product;
+using GamerSpace.Domain.Entities;
 using GamerSpace.Domain.Interfaces;
 using GamerSpace.Infrastructure.Persistence;
 using GamerSpace.Infrastructure.Repositories;
@@ -107,6 +108,8 @@ builder.Services.AddSwaggerGen(opt =>
         },
     });
 });
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 builder.Services.AddAuthentication(opt =>
 {
