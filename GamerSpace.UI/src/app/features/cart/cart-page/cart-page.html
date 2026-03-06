@@ -12,7 +12,11 @@
       <hr />
       @for (item of cartItems; track item.variant.id) {
         <div class="cart-item">
-          <img class="cart-item__image" src="{{ item.variant.imageUrl }}" />
+          <img
+            class="cart-item__image"
+            alt="{{ item.product.name }}"
+            src="{{ item.variant.imageUrl }}"
+          />
           <div class="cart-item__info">
             <div class="cart-item__separation">
               <h2 class="cart-item__name">{{ item.product.name }}</h2>
