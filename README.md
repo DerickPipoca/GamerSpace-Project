@@ -1,4 +1,11 @@
-## GamerSpace
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DerickPipoca_GamerSpace-Project&metric=alert_status&token=4ad891dd529acd271903ed9c589ad2391d461aa9)](https://sonarcloud.io/summary/new_code?id=DerickPipoca_GamerSpace-Project)
+
+![DotNet](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+# GamerSpace
 
 Aplicação full stack para um e-commerce de periféricos gamer, com catálogo de produtos, autenticação de usuários, carrinho/checkout e área administrativa.
 
@@ -68,6 +75,9 @@ Rotas principais (exemplos):
   - Angular
   - TypeScript
   - SCSS
+
+- **Banco de Dados**
+  - MySql
 
 ---
 
