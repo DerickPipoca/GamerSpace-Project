@@ -39,7 +39,15 @@ builder.Services.AddCors(allowedCors =>
 var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<GamerSpaceDbContext>(opt =>
     opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
-        mySqlOptions => mySqlOptions.MigrationsAssembly(typeof(GamerSpaceDbContext).Assembly.FullName))
+        mySqlOptions =>
+        {
+            mySqlOptions.MigrationsAssembly(typeof(GamerSpaceDbContext).Assembly.FullName);
+            mySqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null);
+        })
+
 );
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -136,6 +144,21 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<GamerSpaceDbContext>();
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Um erro ocorreu ao aplicar as migrations no banco de dados.");
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -144,7 +167,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors(allowFrontEnd);
 

@@ -1,0 +1,21 @@
+# Node and Angular
+node_modules
+dist
+out-tsc
+.angular
+.cache
+coverage
+
+# .NET
+**/bin/
+**/obj/
+*.user
+.vs
+.vscode
+
+# Generic
+.git
+.gitignore
+*.log
+Dockerfile*
+.dockerignore
