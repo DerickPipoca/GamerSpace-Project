@@ -4,7 +4,7 @@
       <div class="profile-leftbar__item">
         <a class="profile-leftbar__link" routerLink="/profile">Perfil</a>
       </div>
-      @if (isAdmin$) {
+      @if (isAdmin$ | async) {
         <div class="profile-leftbar__item--title">
           <p>Admin</p>
         </div>

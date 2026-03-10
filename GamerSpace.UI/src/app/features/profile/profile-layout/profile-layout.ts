@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../core/services/auth-service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-layout',
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, AsyncPipe],
   templateUrl: './profile-layout.html',
   styleUrl: './profile-layout.scss',
 })
