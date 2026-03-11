@@ -22,6 +22,7 @@ RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --chown=app:app --from=build /app/publish .
+USER app
 ENTRYPOINT ["dotnet", "GamerSpace.API.dll"]
 
