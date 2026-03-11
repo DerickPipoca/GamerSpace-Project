@@ -19,12 +19,12 @@ namespace GamerSpace.Application.UseCases.Products.Queries
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductVariantDto>?> Execute(long productId)
+        public async Task<IEnumerable<ProductVariantDto>?> Execute(long id)
         {
-            var product = await _productRepository.GetByIdWithIncludesAsync(productId);
+            var product = await _productRepository.GetByIdWithIncludesAsync(id);
 
             if (product == null)
-                throw new KeyNotFoundException($"Product with ID {productId} not found.");
+                throw new KeyNotFoundException($"Product with ID {id} not found.");
 
             var variantsDtos = _mapper.Map<IEnumerable<ProductVariantDto>>(product.Variants);
 

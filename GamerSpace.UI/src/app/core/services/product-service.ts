@@ -64,7 +64,7 @@ export class ProductService {
   }
 
   public getProductById(id: number) {
-    var productVariant = this.http.get<Product>(`${this.apiUrl}/${id}`);
+    let productVariant = this.http.get<Product>(`${this.apiUrl}/${id}`);
     console.log(productVariant);
     return productVariant;
   }

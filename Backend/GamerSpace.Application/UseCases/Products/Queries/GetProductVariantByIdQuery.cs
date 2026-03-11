@@ -22,12 +22,12 @@ namespace GamerSpace.Application.UseCases.Products.Queries
             _productRepository = productRepository;
             _mapper = mapper;
         }
-        public async Task<ProductVariantDto> Execute(long productVariantId)
+        public async Task<ProductVariantDto> Execute(long id)
         {
-            var variant = await _productRepository.GetVariantByIdAsync(productVariantId);
+            var variant = await _productRepository.GetVariantByIdAsync(id);
 
             if (variant == null)
-                throw new KeyNotFoundException($"Product variant with ID {productVariantId} not found.");
+                throw new KeyNotFoundException($"Product variant with ID {id} not found.");
 
             return _mapper.Map<ProductVariantDto>(variant);
         }

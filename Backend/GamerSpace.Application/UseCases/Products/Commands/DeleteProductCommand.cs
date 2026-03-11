@@ -12,12 +12,10 @@ namespace GamerSpace.Application.UseCases.Products.Commands
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public DeleteProductCommand(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public DeleteProductCommand(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task Execute(long productId)

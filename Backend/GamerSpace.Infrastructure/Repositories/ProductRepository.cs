@@ -61,7 +61,7 @@ namespace GamerSpace.Infrastructure.Repositories
         {
             var productVariants = await _context.ProductVariants
                             .Where(pv => productVariantsIds.Contains(pv.Id) && !pv.Disabled).ToListAsync();
-        
+
             return productVariants;
         }
     }

@@ -12,13 +12,11 @@ namespace GamerSpace.Application.UseCases.Products.Commands
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public UpdateProductVariantCommand(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateProductVariantCommand(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task Execute(long productId, long productVariantId, UpdateProductVariantDto updateProductVariantDto)
@@ -36,7 +34,7 @@ namespace GamerSpace.Application.UseCases.Products.Commands
                 updateProductVariantDto.StockAmount,
                 updateProductVariantDto.ImageUrl
                 );
-                
+
             await _unitOfWork.SaveChangesAsync();
         }
     }
