@@ -57,10 +57,10 @@ namespace GamerSpace.Infrastructure.Repositories
             return productVariant;
         }
 
-        public async Task<List<ProductVariant>> GetVariantsByIdsAsync(List<long> productVariantsIds)
+        public async Task<List<ProductVariant>> GetVariantsByIdsAsync(List<long> productVariantIds)
         {
             var productVariants = await _context.ProductVariants
-                            .Where(pv => productVariantsIds.Contains(pv.Id) && !pv.Disabled).ToListAsync();
+                            .Where(pv => productVariantIds.Contains(pv.Id) && !pv.Disabled).ToListAsync();
 
             return productVariants;
         }

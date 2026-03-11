@@ -6,7 +6,7 @@ namespace GamerSpace.Application.UseCases.Products.Queries
 {
     public interface IGetVariantsByProductQuery
     {
-        Task<IEnumerable<ProductVariantDto>?> Execute(long categoryId);
+        Task<IEnumerable<ProductVariantDto>?> Execute(long id);
     }
     public class GetVariantsByProductQuery : IGetVariantsByProductQuery
     {
