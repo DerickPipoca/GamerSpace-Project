@@ -150,7 +150,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<GamerSpaceDbContext>();
-        context.Database.Migrate();
+        await context.Database.MigrateAsync();
     }
     catch (Exception ex)
     {
@@ -166,8 +166,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-//app.UseHttpsRedirection();
 
 app.UseCors(allowFrontEnd);
 
