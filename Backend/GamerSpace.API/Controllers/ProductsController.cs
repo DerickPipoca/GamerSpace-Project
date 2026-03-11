@@ -6,8 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamerSpace.API.Controllers
 {
+    /// <summary>
+    /// Gerencia as operações de produtos.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class ProductsController : ControllerBase
     {
         private readonly IGetAllProductsQuery _getAllProductsQuery;
@@ -48,6 +52,11 @@ namespace GamerSpace.API.Controllers
             _deleteProductVariantCommand = deleteProductVariantCommand;
         }
 
+        /// <summary>
+        /// Lista todos os produtos com paginação.
+        /// </summary>
+        /// <param name="paginationQueryDto">Parâmetros de paginação (ex: página atual e tamanho da página).</param>
+        /// <returns>Uma lista paginada de produtos.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] PaginationQueryDto paginationQueryDto)
         {
@@ -55,6 +64,11 @@ namespace GamerSpace.API.Controllers
             return Ok(pagedProducts);
         }
 
+        /// <summary>
+        /// Obtém os detalhes de um produto específico pelo seu Id.
+        /// </summary>
+        /// <param name="id">Id do produto.</param>
+        /// <returns>Os detalhes do produto.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(long id)
         {
@@ -62,6 +76,11 @@ namespace GamerSpace.API.Controllers
             return Ok(product);
         }
 
+        /// <summary>
+        /// Obtém os detalhes de uma variante de produto específica.
+        /// </summary>
+        /// <param name="productVariantId">Id da variante do produto.</param>
+        /// <returns>Os detalhes da variante.</returns>
         [HttpGet("variants/{productVariantId}")]
         public async Task<IActionResult> GetProductVariantById(long productVariantId)
         {
@@ -69,6 +88,11 @@ namespace GamerSpace.API.Controllers
             return Ok(product);
         }
 
+        /// <summary>
+        /// Lista todas as variantes de um produto específico.
+        /// </summary>
+        /// <param name="productId">Id do produto pai.</param>
+        /// <returns>Uma lista de variantes associadas ao produto.</returns>
         [HttpGet("{productId}/variants")]
         public async Task<IActionResult> GetProductVariants(long productId)
         {
@@ -76,6 +100,11 @@ namespace GamerSpace.API.Controllers
             return Ok(variants);
         }
 
+        /// <summary>
+        /// Cria um novo produto.
+        /// </summary>
+        /// <param name="createProductDto">Dados para a criação do produto.</param>
+        /// <returns>O produto recém-criado.</returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostProduct([FromBody] CreateProductDto createProductDto)
@@ -84,6 +113,12 @@ namespace GamerSpace.API.Controllers
             return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
         }
 
+        /// <summary>
+        /// Adiciona uma nova variante a um produto existente.
+        /// </summary>
+        /// <param name="productId">Id do produto pai.</param>
+        /// <param name="createProductVariantDto">Dados para a criação da variante.</param>
+        /// <returns>A variante recém-criada.</returns>
         [HttpPost("{productId}/variants")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostProduct(long productId, [FromBody] CreateProductVariantDto createProductVariantDto)
@@ -93,6 +128,12 @@ namespace GamerSpace.API.Controllers
             return CreatedAtAction(nameof(GetProductVariantById), new { productVariantId = newVariantDto!.Id }, newVariantDto);
         }
 
+        /// <summary>
+        /// Atualiza os dados de um produto existente.
+        /// </summary>
+        /// <param name="productId">Id do produto a ser atualizado.</param>
+        /// <param name="updateProductDto">Novos dados do produto.</param>
+        /// <returns>N/A</returns>
         [HttpPut("{productId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProduct(long productId, [FromBody] UpdateProductDto updateProductDto)
@@ -101,6 +142,13 @@ namespace GamerSpace.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Atualiza os dados de uma variante de produto.
+        /// </summary>
+        /// <param name="productId">Id do produto pai.</param>
+        /// <param name="productVariantId">Id da variante a ser atualizada.</param>
+        /// <param name="updateProductVariantDto">Novos dados da variante.</param>
+        /// <returns>N/A</returns>
         [HttpPut("{productId}/variants/{productVariantId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProductVariant(long productId, long productVariantId, [FromBody] UpdateProductVariantDto updateProductVariantDto)
@@ -109,6 +157,11 @@ namespace GamerSpace.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Remove um produto e suas variantes do sistema.
+        /// </summary>
+        /// <param name="productId">Id do produto a ser removido.</param>
+        /// <returns>N/A</returns>
         [HttpDelete("{productId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(long productId)
@@ -117,6 +170,12 @@ namespace GamerSpace.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Remove uma variante de produto do sistema.
+        /// </summary>
+        /// <param name="productId">Id do produto pai.</param>
+        /// <param name="productVariantId">Id da variante a ser removida.</param>
+        /// <returns>N/A</returns>
         [HttpDelete("{productId}/variants/{productVariantId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProductVariant(long productId, long productVariantId)

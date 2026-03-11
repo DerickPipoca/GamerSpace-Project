@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using GamerSpace.Application.DTOs;
 using GamerSpace.Application.UseCases.Categories.Commands;
 using GamerSpace.Application.UseCases.Categories.Queries;
@@ -10,8 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamerSpace.API.Controllers
 {
+    /// <summary>
+    /// Gerencia as categorias de produtos da plataforma (ex: Preto, Azul, Sem fio, Headset).
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class CategoriesController : ControllerBase
     {
         private readonly IGetAllCategoriesQuery _getAllCategoriesQuery;
@@ -35,6 +35,10 @@ namespace GamerSpace.API.Controllers
             _deleteCategoryCommand = deleteCategoryCommand;
         }
 
+        /// <summary>
+        /// Lista todas as categorias disponíveis no sistema.
+        /// </summary>
+        /// <returns>Uma lista contendo todas as categorias.</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
@@ -42,6 +46,11 @@ namespace GamerSpace.API.Controllers
             return Ok(categories);
         }
 
+        /// <summary>
+        /// Obtém os detalhes de uma categoria específica pelo seu Id.
+        /// </summary>
+        /// <param name="categoryId">Id único da categoria.</param>
+        /// <returns>Os detalhes da categoria solicitada.</returns>
         [HttpGet("{categoryId}")]
         public async Task<IActionResult> GetCategoryById(long categoryId)
         {
@@ -49,6 +58,11 @@ namespace GamerSpace.API.Controllers
             return Ok(category);
         }
 
+        /// <summary>
+        /// Cria uma nova categoria.
+        /// </summary>
+        /// <param name="createCategoryDto">Dados necessários para criar a categoria.</param>
+        /// <returns>A categoria recém-criada.</returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PostCategory([FromBody] CreateCategoryDto createCategoryDto)
@@ -57,6 +71,12 @@ namespace GamerSpace.API.Controllers
             return CreatedAtAction(nameof(GetCategoryById), new { categoryId = category.Id }, category);
         }
 
+        /// <summary>
+        /// Atualiza os dados de uma categoria existente.
+        /// </summary>
+        /// <param name="categoryId">Id da categoria a ser atualizada.</param>
+        /// <param name="updateCategoryDto">Novos dados da categoria.</param>
+        /// <returns>N/A.</returns>
         [HttpPut("{categoryId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutCategory(long categoryId, [FromBody] UpdateCategoryDto updateCategoryDto)
@@ -65,6 +85,11 @@ namespace GamerSpace.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Remove uma categoria do sistema.
+        /// </summary>
+        /// <param name="categoryId">Id da categoria a ser removida.</param>
+        /// <returns>N/A.</returns>
         [HttpDelete("{categoryId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(long categoryId)

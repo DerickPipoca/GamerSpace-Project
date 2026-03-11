@@ -94,6 +94,9 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateProductDtoValidator>(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    opt.IncludeXmlComments(xmlPath);
     opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "GamerSpace API", Version = "v1" });
     opt.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
