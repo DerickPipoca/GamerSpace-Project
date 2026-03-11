@@ -4,10 +4,10 @@ services:
     container_name: gamerspace-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: 64x2QvqIk52pN
-      MYSQL_DATABASE: GamerSpaceDB
-      MYSQL_USER: gamerspace
-      MYSQL_PASSWORD: 9noXvHm91zXXX
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PWD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USER_NAME}
+      MYSQL_PASSWORD: ${MYSQL_USER_PWD}
     ports:
       - "3367:3306"
     volumes:
@@ -24,8 +24,8 @@ services:
       - mysql-db
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
-      ConnectionStrings__Default: "Server=mysql-db;Port=3306;Database=GamerSpaceDB;User=gamerspace;Password=9noXvHm91zXXX;TreatTinyAsBoolean=true"
-      Jwt__Key: "CHAVE-CHAVE-CHAVE-CHAVE-CHAVE-CHAVE-CHAVE-CHAVE-CHAVE-CHAVE"
+      ConnectionStrings__Default: "Server=mysql-db;Port=3306;Database=${MYSQL_DB_NAME};User=${MYSQL_USER_NAME};Password=${MYSQL_USER_PWD};TreatTinyAsBoolean=true"
+      Jwt__Key: ${JWT_SECRET_KEY}
       Jwt__Issuer: "GamerSpace.API"
       Jwt__Audience: "GamerSpace.Frontend"
     ports:
