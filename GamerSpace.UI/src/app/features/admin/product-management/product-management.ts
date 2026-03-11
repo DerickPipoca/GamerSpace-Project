@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PagedResult } from '../../../shared/models/paged-result.model';
 import { Product } from '../../../shared/models/product.model';
 import { ProductService } from '../../../core/services/product-service';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './product-management.html',
   styleUrl: './product-management.scss',
 })
-export class ProductManagement {
+export class ProductManagement implements OnInit {
   public productsResult: PagedResult<Product> | null = null;
   public isLoading = true;
   public error: string | null = null;

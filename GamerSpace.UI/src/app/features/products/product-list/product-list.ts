@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { PagedResult } from '../../../shared/models/paged-result.model';
 import { Product } from '../../../shared/models/product.model';
 import { ProductService } from '../../../core/services/product-service';
@@ -15,7 +15,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
 })
-export class ProductList {
+export class ProductList implements OnInit {
   public categoryIds: number[] = [];
   public searchTerm: string = '';
 
