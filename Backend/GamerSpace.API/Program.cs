@@ -2,6 +2,7 @@ using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using GamerSpace.API.Middleware;
+using GamerSpace.API.Seed;
 using GamerSpace.Application.Mappings;
 using GamerSpace.Application.Services.Auth;
 using GamerSpace.Application.UseCases.Categories.Commands;
@@ -37,13 +38,14 @@ builder.Services.AddCors(allowedCors =>
 });
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
+var serverVersion = new MySqlServerVersion(new Version(8, 4, 0));
 builder.Services.AddDbContext<GamerSpaceDbContext>(opt =>
-    opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+    opt.UseMySql(connectionString, serverVersion,
         mySqlOptions =>
         {
             mySqlOptions.MigrationsAssembly(typeof(GamerSpaceDbContext).Assembly.FullName);
             mySqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,
+                maxRetryCount: 10,
                 maxRetryDelay: TimeSpan.FromSeconds(10),
                 errorNumbersToAdd: null);
         })
@@ -84,9 +86,12 @@ builder.Services.AddScoped<IRegisterUserCommand, RegisterUserCommand>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IJwtTokenGeneratorService, JwtTokenGeneratorService>();
 builder.Services.AddScoped<ILoginCommand, LoginCommand>();
+builder.Services.AddScoped<ICreateAdminUserCommand, CreateAdminUserCommand>();
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICheckoutCommand, CheckoutCommand>();
+
+builder.Services.AddScoped<SeedData>();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductDtoValidator>();
@@ -154,11 +159,14 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<GamerSpaceDbContext>();
         await context.Database.MigrateAsync();
+
+        var seeder = services.GetRequiredService<SeedData>();
+        await seeder.SeedAsync();
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Um erro ocorreu ao aplicar as migrations no banco de dados.");
+        logger.LogError(ex, "Um erro ocorreu ao aplicar as migrations/seed no banco de dados.");
     }
 }
 
