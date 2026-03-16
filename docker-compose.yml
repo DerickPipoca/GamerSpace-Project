@@ -10,6 +10,20 @@ services:
       MYSQL_PASSWORD: ${MYSQL_USER_PWD}
     ports:
       - "3367:3306"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u${MYSQL_USER_NAME}",
+          "-p${MYSQL_USER_PWD}",
+        ]
+      timeout: 5s
+      retries: 10
+      interval: 5s
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -21,10 +35,11 @@ services:
       dockerfile: Backend/GamerSpace.API/Dockerfile
     container_name: gamerspace-backend
     depends_on:
-      - mysql-db
+      mysql-db:
+        condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
-      ConnectionStrings__Default: "Server=mysql-db;Port=3306;Database=${MYSQL_DB_NAME};User=${MYSQL_USER_NAME};Password=${MYSQL_USER_PWD};TreatTinyAsBoolean=true"
+      ConnectionStrings__Default: "Server=mysql-db;Port=3306;Database=${MYSQL_DB_NAME};User=${MYSQL_USER_NAME};Password=${MYSQL_USER_PWD};AllowPublicKeyRetrieval=True;TreatTinyAsBoolean=true"
       Jwt__Key: ${JWT_SECRET_KEY}
       Jwt__Issuer: "GamerSpace.API"
       Jwt__Audience: "GamerSpace.Frontend"
