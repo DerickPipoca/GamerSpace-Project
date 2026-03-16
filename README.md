@@ -1,3 +1,6 @@
+# GamerSpace
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DerickPipoca_GamerSpace-Project&metric=alert_status&token=4ad891dd529acd271903ed9c589ad2391d461aa9)](https://sonarcloud.io/summary/new_code?id=DerickPipoca_GamerSpace-Project)
 
 ![DotNet](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
@@ -5,23 +8,65 @@
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-# GamerSpace
-
-Aplicação full stack para um e-commerce de periféricos gamer, com catálogo de produtos, autenticação de usuários, carrinho/checkout e área administrativa.
-
-Pensado para servir como projeto de portfólio, demonstrando boas práticas em .NET (clean architecture) e Angular.
-
 ---
 
-## Visão geral
+## Conteúdo
 
-- **Catálogo de produtos**: listagem de produtos com detalhes e variantes.
-- **Categorias e classificações**: organização do catálogo por categorias e tipos de classificação.
-- **Autenticação**: registro e login de usuários.
-- **Carrinho e checkout**: criação de pedidos a partir do carrinho (checkout autenticado).
-- **Área admin**: gerenciamento de produtos (listagem, criação, edição e remoção).
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Pré requisitos](#pré-requisitos)
+- [Instalação e Execução](#instalação-e-execução)
+- [Roadmap](#roadmap)
+- [English summary](#english-summary)
+- [Autor](#autor)
 
----
+## Sobre o projeto
+
+<p align="justify"> GamerSpace é um projeto fullstack de um e-commerce para periféricos 'Gamer'. Feito em camadas, clean architecture e DDD.
+<br> 
+Pensado para servir como projeto de portfólio, com boas práticas em .NET e Angular.
+</p>
+
+### Tecnologias usadas
+
+- **Linguagem e Framework:**
+  - Back-end/API:
+    - [C#](https://learn.microsoft.com/pt-br/dotnet/csharp/)
+    - [ASP.NET Core 9 (Web API)](https://dotnet.microsoft.com/pt-br/)
+  - Front-end:
+    - [Angular 20](https://angular.dev/)
+    - [TypeScript](https://www.typescriptlang.org/)
+    - [Sass](https://sass-lang.com/)
+- **Banco de Dados:**
+  - [MySQL](https://www.mysql.com/)
+  - [Entity Framework Core 9](https://learn.microsoft.com/pt-br/ef/core/) - NuGet [Pomelo](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)
+- **Bibliotecas e Ferramentas:**
+  - [JWT (JSON Web Tokens)](https://jwt.io/) - Autenticação
+  - [AutoMapper](https://automapper.org/) - Mapeamento de Objetos
+  - [FluentValidation](https://fluentvalidation.net/) - Validação
+  - [Swagger](https://swagger.io/) - Documentação da API
+
+### Imagens
+
+<details>
+<summary>Landing Page</summary>
+<img src="./docs/landing-page.png" alt="Landing Page" width="300">
+</details>
+<details>
+<summary>Página de produto</summary>
+<img src="./docs/product.png" alt="Product" width="300">
+</details>
+<details>
+<summary>Carrinho</summary>
+<img src="./docs/cart.png" alt="Cart" width="300">
+</details>
+<details>
+<summary>Login</summary>
+<img src="./docs/login.png" alt="Login" width="300">
+</details>
+<details>
+<summary>Register</summary>
+<img src="./docs/register.png" alt="Register" width="300">
+</details>
 
 ## Arquitetura
 
@@ -57,70 +102,68 @@ Rotas principais (exemplos):
 
 - `/home` – página inicial.
 - `/products` – listagem de produtos.
-- `/products/:id` – detalhe do produto.
 - `/cart` – carrinho.
 - `/login` e `/register` – autenticação.
 - `/admin/...` – área administrativa.
 
----
+## Pré requisitos
 
-## Tecnologias
+Antes de começar, garanta que você tem instalado o Docker:
 
-- **Backend**
-  - .NET / ASP.NET Core
-  - (EF Core ou similar para persistência, conforme configuração do projeto)
-  - Autenticação baseada em token/JWT (conforme implementação da camada de aplicação)
+- [Docker Desktop](https://docs.docker.com/desktop)
 
-- **Frontend**
-  - Angular
-  - TypeScript
-  - SCSS
+## Instalação e Execução
 
-- **Banco de Dados**
-  - MySql
+Siga os passos abaixo para ter um multi-container do docker rodando localmente em sua máquina:
 
----
+### Via CLI (Development)
 
-## Como rodar localmente
+1. Clone o repositório.
+2. As informações sensíveis devem ser configuradas via User Secrets. No terminal, na pasta do projeto, execute os comandos abaixo para configurar os segredos da aplicação:
 
-### Pré-requisitos
+```Bash
+#Iniciar user-secrets
+dotnet user-secrets init
 
-- .NET SDK instalado (versão compatível com o projeto).
-- Node.js + npm instalados.
+#Configurar a Connection String do MySQL
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost;Database=gamerspacedb;Uid=root;Pwd=sua_senha;"
 
-### Backend (API)
-
-No diretório raiz do repositório:
-
-```bash
-cd Backend
-dotnet restore
-dotnet run --project GamerSpace.API/GamerSpace.API.csproj
+#Configurar a Key do JWT
+dotnet user-secrets set "JWT:Key" "Senha-Longa1234567890-1234567890-1234567890"
 ```
 
-A API deverá subir em uma porta configurada no projeto (por exemplo, `https://localhost:5001`/`http://localhost:5000`).
+3. Acesse a API em https://localhost:7247/swagger e o Frontend em http://localhost:4200.
 
-### Frontend (Angular)
+### Via Docker (Production)
 
-Em outro terminal, a partir da raiz do repositório:
+1. Clone o repositório.
+2. Crie um arquivo `.env` na pasta raiz do projeto e siga o modelo do arquivo `.env.example` para configurar os user-secrets.
+3. Na raiz do projeto, execute:
+   ```bash
+   docker-compose up --build
+   ```
+4. Acesse o projeto em http://localhost:4200.
 
-```bash
-cd GamerSpace.UI
-npm install
-npm start
-```
+## Roadmap
 
-A aplicação Angular deverá ficar disponível em algo como `http://localhost:4200`.
+O projeto ainda não está 100% completo, mas o MVP está feito.
 
-Certifique-se de que a URL da API configurada no frontend aponta para o endereço em que o backend está rodando.
+- [ ] Pagamento integrado com PagSeguro.
+- [ ] Histórico de pedidos específico de cada usuário.
+- [ ] Histórico de pedidos geral (ADMIN).
+- [ ] Gerenciamento dos tipos de categorias (ADMIN).
+- [ ] Alterar senha.
+- [ ] Descrição dos itens em MD.
 
----
+## English summary
 
-## English summary (short)
-
-GamerSpace is a full stack application for an Gaming Gear e-commerce, built with **ASP.NET Core** and **Angular**.  
+A project for my portfolio named GamerSpace. It's a full stack application for an gaming gear e-commerce, built with **ASP.NET Core** and **Angular**.  
 It showcases:
 
-- a layered backend architecture (API, Application, Domain, Infrastructure)
-- a feature-based Angular frontend (products, cart, auth, admin)
-- typical e‑commerce flows: product catalog, authentication, cart and checkout and admin product management.
+- A layered backend architecture `(API, Application, Domain, Infrastructure)`
+- A feature-based Angular frontend `(products, cart, auth, admin)`
+- Typical e‑commerce flows: product catalog, authentication, cart and checkout and admin product management.
+
+## Autor
+
+[@DerickPipoca](https://github.com/DerickPipoca)<a name = "autor"></a>
