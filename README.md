@@ -1,7 +1,7 @@
 # GamerSpace
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DerickPipoca_GamerSpace-Project&metric=alert_status&token=4ad891dd529acd271903ed9c589ad2391d461aa9)](https://sonarcloud.io/summary/new_code?id=DerickPipoca_GamerSpace-Project)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DerickPipoca_GamerSpace-Project&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DerickPipoca_GamerSpace-Project)
 
 ![DotNet](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
@@ -119,25 +119,32 @@ Siga os passos abaixo para ter um multi-container do docker rodando localmente e
 ### Via CLI (Development)
 
 1. Clone o repositório.
-2. As informações sensíveis devem ser configuradas via User Secrets. No terminal, na pasta do projeto, execute os comandos abaixo para configurar os segredos da aplicação:
+2. Algumas informações sensíveis devem ser configuradas via User Secrets. No terminal, na pasta do projeto, execute os comandos abaixo para configura-las:
 
-```Bash
-#Iniciar user-secrets
+```bash
+# Iniciar user-secrets
+cd Backend/GamerSpace.API
 dotnet user-secrets init
 
-#Configurar a Connection String do MySQL
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost;Database=gamerspacedb;Uid=root;Pwd=sua_senha;"
+# Configurar a Connection String
+dotnet user-secrets set "ConnectionStrings:Default" "Server=localhost;Database=GamerSpaceDB;Uid=root;Pwd=SUA_SENHA"
 
-#Configurar a Key do JWT
-dotnet user-secrets set "JWT:Key" "Senha-Longa1234567890-1234567890-1234567890"
+# Configurar a Key do JWT
+dotnet user-secrets set "Jwt:Key" "SUA_CHAVE_LONGA_AQUI"
+
+# Opcional: Issuer/Audience
+dotnet user-secrets set "Jwt:Issuer" "GamerSpace.API"
+dotnet user-secrets set "Jwt:Audience" "GamerSpace.Frontend"
 ```
 
-3. Acesse a API em https://localhost:7247/swagger e o Frontend em http://localhost:4200.
+3. Rode a API e o frontend (verifique a URL/porta no output do terminal):
+   - Swagger normalmente fica em `/swagger`
+   - Frontend normalmente em `http://localhost:4200`
 
 ### Via Docker (Production)
 
 1. Clone o repositório.
-2. Crie um arquivo `.env` na pasta raiz do projeto e siga o modelo do arquivo `.env.example` para configurar os user-secrets.
+2. Crie um arquivo `.env` na raiz do projeto e siga o modelo do arquivo `.env.example`
 3. Na raiz do projeto, execute:
    ```bash
    docker-compose up --build
