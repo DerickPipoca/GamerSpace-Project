@@ -132,6 +132,9 @@ dotnet user-secrets set "ConnectionStrings:Default" "Server=localhost;Database=G
 # Configurar a Key do JWT
 dotnet user-secrets set "Jwt:Key" "SUA_CHAVE_LONGA_AQUI"
 
+# Configurar a senha do usuário Admin padrão
+dotnet user-secrets set "SeedConfig:AdminPassword" "SENHA@ADMIN"
+
 # Opcional: Issuer/Audience
 dotnet user-secrets set "Jwt:Issuer" "GamerSpace.API"
 dotnet user-secrets set "Jwt:Audience" "GamerSpace.Frontend"

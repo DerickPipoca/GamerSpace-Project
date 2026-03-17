@@ -43,6 +43,7 @@ services:
       Jwt__Key: ${JWT_SECRET_KEY}
       Jwt__Issuer: "GamerSpace.API"
       Jwt__Audience: "GamerSpace.Frontend"
+      SeedConfig__AdminPassword: ${SEEDCONFIG_ADMIN_PASSWORD}
     ports:
       - "5000:8080"
     networks:

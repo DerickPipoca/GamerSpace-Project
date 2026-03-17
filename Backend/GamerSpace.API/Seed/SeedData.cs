@@ -13,22 +13,29 @@ namespace GamerSpace.API.Seed
     {
         private readonly GamerSpaceDbContext _context;
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
         private readonly ICreateAdminUserCommand _createAdminUserCommand;
 
-        public SeedData(GamerSpaceDbContext context, IUserRepository userRepository, ICreateAdminUserCommand createAdminUserCommand)
+        public SeedData(GamerSpaceDbContext context, IUserRepository userRepository, IConfiguration configuration, ICreateAdminUserCommand createAdminUserCommand)
         {
             _context = context;
             _userRepository = userRepository;
+            _configuration = configuration;
             _createAdminUserCommand = createAdminUserCommand;
         }
 
         public async Task SeedAsync()
         {
 
-            if (!_context.Users.Any())
+            if (!await _context.Users.AnyAsync())
             {
-                const string adminEmail = "admin@gamerspace.com";
-                const string adminPassword = "Admin@123456";
+                var adminEmail = "admin@gamerspace.com";
+                var adminPassword = _configuration["SeedConfig:AdminPassword"];
+
+                if (string.IsNullOrEmpty(adminPassword))
+                {
+                    throw new InvalidOperationException("A senha do administrador não foi configurada.");
+                }
 
                 var user = await _userRepository.GetUserByEmailAsync(adminEmail);
                 if (user == null)
@@ -38,9 +45,9 @@ namespace GamerSpace.API.Seed
                 }
             }
 
-            if (!_context.ClassificationTypes.Any())
+            if (!await _context.ClassificationTypes.AnyAsync())
             {
-                _context.ClassificationTypes.AddRange([
+                await _context.ClassificationTypes.AddRangeAsync([
                     new ClassificationType("Cores"), // Id: 1
                     new ClassificationType("Tags"), // Id: 2
                     new ClassificationType("Departamento") // Id: 3
@@ -49,9 +56,9 @@ namespace GamerSpace.API.Seed
                 await _context.SaveChangesAsync();
             }
 
-            if (!_context.Categories.Any())
+            if (!await _context.Categories.AnyAsync())
             {
-                _context.Categories.AddRange([
+                await _context.Categories.AddRangeAsync([
                     new Category("Preto",1),            // Id: 1
                     new Category("Branco",1),           // Id: 2
                     new Category("Bege",1),             // Id: 3
