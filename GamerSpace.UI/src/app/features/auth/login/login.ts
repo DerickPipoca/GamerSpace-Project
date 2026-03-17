@@ -45,7 +45,6 @@ export class Login implements OnInit {
 
     this.authService.login(loginDto).subscribe({
       next: (response) => {
-        console.log('Login bem-sucedido!', response.token);
         alert('Login bem-sucedido!');
         this.router.navigate(['home']);
       },
