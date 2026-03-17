@@ -1,7 +1,7 @@
 # GamerSpace
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DerickPipoca_GamerSpace-Project&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DerickPipoca_GamerSpace-Project)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DerickPipoca_GamerSpace-Project&metric=alert_status&token=4ad891dd529acd271903ed9c589ad2391d461aa9)](https://sonarcloud.io/summary/new_code?id=DerickPipoca_GamerSpace-Project)
 
 ![DotNet](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
